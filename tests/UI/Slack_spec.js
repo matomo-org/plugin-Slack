@@ -79,7 +79,7 @@
     const selector = '.page';
     testEnvironment.configOverride.Slack = {slackOauthToken: 'token'};
     testEnvironment.save();
-    await captureScreen('slack_report_enabled', async () => {
+    await captureScreen('slack_report_error', async () => {
       await page.evaluate(() => $('#report_description').val('Slack Report').change());
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) input')[0].click());
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) li:eq(1)').click());
