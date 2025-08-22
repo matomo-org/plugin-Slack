@@ -97,6 +97,7 @@
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(1) input').val('ChannelID').change());
       await page.mouse.move(-10, -10);
       await page.mouse.click(-10, -10);
+      await page.waitForTimeout(100);
       await page.evaluate(() => $('.matomo-save-button input.btn').click());
       await page.waitForNetworkIdle();
       await page.waitForTimeout(100);
