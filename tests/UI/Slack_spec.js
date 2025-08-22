@@ -42,7 +42,7 @@
 
   it('should show send report via Slack as an option', async function () {
     const selector = '.page';
-    await captureScreen('send_via_slack', async () => {
+    await captureScreen('send_via_slack_new', async () => {
       await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
     }, selector);
   });
