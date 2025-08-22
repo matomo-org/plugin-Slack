@@ -289,6 +289,4 @@ class Slack extends Plugin
         // when it becomes available, all the MobileMessaging settings (API credentials, phone numbers, etc..) should be removed from the option table
         return;
     }
-
 }
-

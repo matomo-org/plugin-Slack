@@ -1,7 +1,7 @@
 # Action for running tests
 # This file has been automatically created.
 # To recreate it you can run this command
-# ./console generate:test-action --plugin="Slack" --php-versions="7.2,8.4" --schedule-cron="0 2 * * 8"
+# ./console generate:test-action --plugin="Slack" --php-versions="7.2,8.4" --schedule-cron="0 5 * * 6"
 
 name: Plugin Slack Tests
 
@@ -13,7 +13,7 @@ on:
       - '**.x-dev'
   workflow_dispatch:
   schedule:
-  - cron: "0 2 * * 8"
+  - cron: "0 5 * * 6"
 
 permissions:
   actions: read
