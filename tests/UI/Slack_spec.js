@@ -80,8 +80,9 @@
     testEnvironment.configOverride.Slack = {slackOauthToken: 'token'};
     testEnvironment.save();
     await captureScreen('slack_report_error', async () => {
-      await page.evaluate(() => $('#report_description').val('Slack Reporta').change());
+      await page.evaluate(() => $('#report_description').val('Slack Report').change());
       await page.mouse.move(-10, -10);
+      await page.mouse.click(-10, -10);
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) input')[0].click());
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) li:eq(1)').click());
       await page.evaluate(() => $('#slackVisitsSummary_get').click());
@@ -95,6 +96,7 @@
     await captureScreen('slack_report_save', async () => {
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(1) input').val('ChannelID').change());
       await page.mouse.move(-10, -10);
+      await page.mouse.click(-10, -10);
       await page.evaluate(() => $('.matomo-save-button input.btn').click());
       await page.waitForNetworkIdle();
       await page.waitForTimeout(100);
