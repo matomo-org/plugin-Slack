@@ -93,14 +93,12 @@
 
   it('should show save a report successfully', async function () {
     const selector = '.page';
-    await captureScreen('slack_report_save', async () => {
-      await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(1) input').val('ChannelID').change());
-      await page.mouse.move(-10, -10);
-      await page.mouse.click(-10, -10);
-      await page.waitForTimeout(100);
-      await page.evaluate(() => $('.matomo-save-button input.btn').click());
-      await page.waitForNetworkIdle();
-      await page.waitForTimeout(100);
+    await captureScreen('slack_report_error', async () => {
+        await page.waitForNetworkIdle();
+        await page.evaluate(() => $('#report_description').val('Slack Report').change());
+        await page.evaluate(() => $('#report_description').val('Slack Report').trigger('change'));
+        await page.evaluate(() => $('#channelID').val('channelID').change());
+        await page.evaluate(() => $('.matomo-save-button input.btn').click());
     }, selector);
   });
 
