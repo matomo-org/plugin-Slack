@@ -1,0 +1,12 @@
+{
+  "Slack": {
+    "ChannelID": "Slack Channel ID",
+    "NoOauthTokenAdded": "Please add your Slack OauthToken %1$shere%2$s.",
+    "OauthTokenRequiredErrorMessage": "Please add your Slack Oauth token in General Settings under ScheduledReports section.",
+    "OauthTokenSettingTitle": "Slack Oauth Token",
+    "OauthTokenSettingDescription": "Enter your Slack Oauth Token",
+    "PleaseFindYourReport": "Here is your %1$s report for %2$s",
+    "SlackChannelIDRequiredErrorMessage": "Slack Channel ID cannot be empty.",
+    "SlackChannel": "Slack Channel"
+  }
+}
