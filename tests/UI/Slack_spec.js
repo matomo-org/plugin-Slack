@@ -88,17 +88,18 @@
       await page.evaluate(() => $('#slackVisitsSummary_get').click());
       await page.evaluate(() => $('.matomo-save-button input.btn').click());
       await page.waitForNetworkIdle();
+      await page.evaluate(() => $('#channelID').val(' ').change());
     }, selector);
   });
 
   it('should show save a report successfully', async function () {
     const selector = '.page';
-    await captureScreen('slack_report_error', async () => {
-        await page.waitForNetworkIdle();
-        await page.evaluate(() => $('#report_description').val('Slack Report').change());
-        await page.evaluate(() => $('#report_description').val('Slack Report').trigger('change'));
-        await page.evaluate(() => $('#channelID').val('channelID').change());
+    await captureScreen('slack_report_save_report', async () => {
         await page.evaluate(() => $('.matomo-save-button input.btn').click());
+        await page.evaluate(() => $('#slackUserCountry_getCountry').click());
+        await page.evaluate(() => $('#channelID').val('Channel1').change());
+        await page.waitForNetworkIdle();
+        await page.waitForTimeout(300);
     }, selector);
   });
 
