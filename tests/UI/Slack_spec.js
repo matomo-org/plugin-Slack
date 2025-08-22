@@ -72,6 +72,8 @@
       await page.waitForNetworkIdle();
       await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
       await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) input')[0].click());
+      await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) li:eq(1)').click());
     }, selector);
   });
 
@@ -80,26 +82,21 @@
     testEnvironment.configOverride.Slack = {slackOauthToken: 'token'};
     testEnvironment.save();
     await captureScreen('slack_report_error', async () => {
-      await page.evaluate(() => $('#report_description').val('Slack Report').change());
-      await page.mouse.move(-10, -10);
-      await page.mouse.click(-10, -10);
-      await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) input')[0].click());
-      await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) li:eq(1)').click());
+      await page.type('textarea#report_description', 'Slack Report');
       await page.evaluate(() => $('#slackVisitsSummary_get').click());
-      await page.evaluate(() => $('.matomo-save-button input.btn').click());
+      await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
-      await page.evaluate(() => $('#channelID').val(' ').change());
     }, selector);
   });
 
   it('should show save a report successfully', async function () {
     const selector = '.page';
     await captureScreen('slack_report_save_report', async () => {
-        await page.evaluate(() => $('.matomo-save-button input.btn').click());
         await page.evaluate(() => $('#slackUserCountry_getCountry').click());
-        await page.evaluate(() => $('#channelID').val('Channel1').change());
+        await page.type('input#channelID', 'ChannelID');
+        await page.click('.matomo-save-button input.btn');
         await page.waitForNetworkIdle();
-        await page.waitForTimeout(300);
+        await page.waitForTimeout(250);
     }, selector);
   });
 
