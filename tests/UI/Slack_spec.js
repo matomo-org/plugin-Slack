@@ -20,8 +20,8 @@
       selector = reportSelector;
     }
     await theTest();
-    await page.waitForTimeout(100);
     await page.waitForNetworkIdle();
+    await page.waitForSelector(selector);
     expect(await page.screenshotSelector(selector)).to.matchImage(screenshotName);
   }
 
@@ -96,7 +96,6 @@
         await page.type('input#channelID', 'ChannelID');
         await page.click('.matomo-save-button input.btn');
         await page.waitForNetworkIdle();
-        await page.waitForTimeout(250);
     }, selector);
   });
 
