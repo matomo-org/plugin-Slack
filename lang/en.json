@@ -1,12 +1,13 @@
 {
   "Slack": {
-    "ChannelID": "Slack Channel ID",
+    "ChannelId": "Slack Channel ID",
     "NoOauthTokenAdded": "Please add your Slack OauthToken %1$shere%2$s.",
     "OauthTokenRequiredErrorMessage": "Please add your Slack Oauth token in General Settings under Slack section.",
     "OauthTokenSettingTitle": "Slack Oauth Token",
     "OauthTokenSettingDescription": "Enter your Slack Oauth Token",
     "PleaseFindYourReport": "Here is your %1$s report for %2$s",
-    "SlackChannelIDRequiredErrorMessage": "Slack Channel ID cannot be empty.",
-    "SlackChannel": "Slack Channel"
+    "SlackChannelIdRequiredErrorMessage": "Slack Channel ID cannot be empty.",
+    "SlackChannel": "Slack Channel",
+    "SlackEnterYourSlackChannelIdHelpText": "Enter you Slack Channel ID"
   }
 }

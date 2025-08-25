@@ -9,10 +9,10 @@
 
 namespace Piwik\Plugins\Slack\tests;
 
+use Piwik\Plugins\Slack\SlackApi;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
-use Piwik\Plugins\Slack\ScheduleReportSlack;
 
-class ScheduleReportSlackTest extends IntegrationTestCase
+class SlackApiTest extends IntegrationTestCase
 {
     public function setUp(): void
     {
@@ -21,57 +21,69 @@ class ScheduleReportSlackTest extends IntegrationTestCase
 
     public function testSendShouldReturnFalseWhenNoUploadURLisReturned()
     {
-        $helperMock = $this->createPartialMock(ScheduleReportSlack::class, [
-            'getUploadURLExternal',
-            'sendFile',
-            'completeUploadExternal'
-        ]);
+        $helperMock = $this->getMockBuilder(SlackApi::class)
+            ->setMethods([
+                'getUploadURLExternal',
+                'sendFile',
+                'completeUploadExternal'
+            ])
+            ->setConstructorArgs(array('token'))
+            ->getMock();
         $helperMock->expects($this->once())->method('getUploadURLExternal')->willReturn('');
         $helperMock->expects($this->never())->method('sendFile');
         $helperMock->expects($this->never())->method('completeUploadExternal');
 
-        $this->assertFalse($helperMock->send('test file', 'test.csv', "a,b,c", 'channelID', 'token'));
+        $this->assertFalse($helperMock->uploadFile('test file', 'test.csv', "a,b,c", 'channelID'));
     }
 
     public function testSendShouldReturnFalseWhenSendFileFails()
     {
-        $helperMock = $this->createPartialMock(ScheduleReportSlack::class, [
-            'getUploadURLExternal',
-            'sendFile',
-            'completeUploadExternal'
-        ]);
+        $helperMock = $this->getMockBuilder(SlackApi::class)
+            ->setMethods([
+                'getUploadURLExternal',
+                'sendFile',
+                'completeUploadExternal'
+            ])
+            ->setConstructorArgs(array('token'))
+            ->getMock();
         $helperMock->expects($this->once())->method('getUploadURLExternal')->willReturn('https://SLACL_URL');
         $helperMock->expects($this->once())->method('sendFile')->willReturn(false);
         $helperMock->expects($this->never())->method('completeUploadExternal');
 
-        $this->assertFalse($helperMock->send('test file', 'test.csv', "a,b,c", 'channelID', 'token'));
+        $this->assertFalse($helperMock->uploadFile('test file', 'test.csv', "a,b,c", 'channelID'));
     }
 
     public function testSendShouldReturnFalseWhenCompleteUploadExternalFails()
     {
-        $helperMock = $this->createPartialMock(ScheduleReportSlack::class, [
-            'getUploadURLExternal',
-            'sendFile',
-            'completeUploadExternal'
-        ]);
+        $helperMock = $this->getMockBuilder(SlackApi::class)
+            ->setMethods([
+                'getUploadURLExternal',
+                'sendFile',
+                'completeUploadExternal'
+            ])
+            ->setConstructorArgs(array('token'))
+            ->getMock();
         $helperMock->expects($this->once())->method('getUploadURLExternal')->willReturn('https://SLACL_URL');
         $helperMock->expects($this->once())->method('sendFile')->willReturn(true);
         $helperMock->expects($this->once())->method('completeUploadExternal')->willReturn(false);
 
-        $this->assertFalse($helperMock->send('test file', 'test.csv', "a,b,c", 'channelID', 'token'));
+        $this->assertFalse($helperMock->uploadFile('test file', 'test.csv', "a,b,c", 'channelID'));
     }
 
     public function testSendSuccess()
     {
-        $helperMock = $this->createPartialMock(ScheduleReportSlack::class, [
-            'getUploadURLExternal',
-            'sendFile',
-            'completeUploadExternal'
-        ]);
+        $helperMock = $this->getMockBuilder(SlackApi::class)
+            ->setMethods([
+                'getUploadURLExternal',
+                'sendFile',
+                'completeUploadExternal'
+            ])
+            ->setConstructorArgs(array('token'))
+            ->getMock();
         $helperMock->expects($this->once())->method('getUploadURLExternal')->willReturn('https://SLACL_URL');
         $helperMock->expects($this->once())->method('sendFile')->willReturn(true);
         $helperMock->expects($this->once())->method('completeUploadExternal')->willReturn(true);
 
-        $this->assertTrue($helperMock->send('test file', 'test.csv', "a,b,c", 'channelID', 'token'));
+        $this->assertTrue($helperMock->uploadFile('test file', 'test.csv', "a,b,c", 'channelID'));
     }
 }

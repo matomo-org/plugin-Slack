@@ -48,6 +48,7 @@ export default defineComponent({
     if (!resetReportParametersFunctions[REPORT_TYPE]) {
       resetReportParametersFunctions[REPORT_TYPE] = (report: Report) => {
         report.slackChannelID = '';
+        report.formatslack = 'pdf'; // default format
       };
     }
 

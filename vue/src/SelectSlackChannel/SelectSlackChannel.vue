@@ -10,7 +10,7 @@
     <Field
         uicontrol="text"
         name="channelID"
-        :title="translate('Slack_ChannelID')"
+        :title="translate('Slack_ChannelId')"
         class="slack"
         :model-value="modelValue"
         :disabled="!isSlackOauthTokenAdded"
@@ -26,8 +26,8 @@
                 </span>
           <span
               v-else
+              v-text="translate('Slack_SlackEnterYourSlackChannelIdHelpText')"
           >
-                  Enter you Slack Channel ID
                 </span>
         </div>
       </template>
