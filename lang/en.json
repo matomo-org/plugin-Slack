@@ -8,6 +8,6 @@
     "PleaseFindYourReport": "Here is your %1$s report for %2$s",
     "SlackChannelIdRequiredErrorMessage": "Slack Channel ID cannot be empty.",
     "SlackChannel": "Slack Channel",
-    "SlackEnterYourSlackChannelIdHelpText": "Enter you Slack Channel ID"
+    "SlackEnterYourSlackChannelIdHelpText": "Enter your Slack Channel ID"
   }
 }
