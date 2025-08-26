@@ -1,5 +1,5 @@
 includes:
     - ../phpstan.neon
 parameters:
-    level: 9
-    tmpDir: /tmp/phpstan/CustomReports/created
+    level: 8
+    tmpDir: /tmp/phpstan/Slack/created

@@ -1,7 +1,7 @@
 parameters:
     level: 0
     phpVersion: 70200
-    tmpDir: /tmp/phpstan/CustomReports/main
+    tmpDir: /tmp/phpstan/Slack/main
     paths:
         - .
     excludePaths:
