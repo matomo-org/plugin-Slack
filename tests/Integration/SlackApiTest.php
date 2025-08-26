@@ -12,6 +12,12 @@ namespace Piwik\Plugins\Slack\tests;
 use Piwik\Plugins\Slack\SlackApi;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 
+/**
+ * @group Slack
+ * @group SlackApiTest
+ * @group Plugins
+ */
+
 class SlackApiTest extends IntegrationTestCase
 {
     public function setUp(): void

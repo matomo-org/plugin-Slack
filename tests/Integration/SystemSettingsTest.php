@@ -13,6 +13,12 @@ use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 use Piwik\Plugins\Slack\SystemSettings;
 use Piwik\Tests\Framework\Fixture;
 
+/**
+ * @group Slack
+ * @group SystemSettingsTest
+ * @group Plugins
+ */
+
 class SystemSettingsTest extends IntegrationTestCase
 {
     private $settings;
