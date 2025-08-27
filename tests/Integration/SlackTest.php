@@ -111,7 +111,11 @@ class ScheduledReportsTest extends IntegrationTestCase
 
         $reportType   = 'slack';
         $reports      = array();
-        $parameters   = array(Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123');
+        $parameters   = array(
+            Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123',
+            ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DEFAULT_DISPLAY_FORMAT,
+            ScheduledReports::EVOLUTION_GRAPH_PARAMETER => ScheduledReports::EVOLUTION_GRAPH_PARAMETER_DEFAULT_VALUE,
+        );
 
         $reportId = API::getInstance()->addReport($idSite, 'description', 'day', 3, $reportType, $reportFormat, $reports, $parameters);
         $this->reportIds[$login . '_' . $idSite] = $reportId;
