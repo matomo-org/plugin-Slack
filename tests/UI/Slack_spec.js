@@ -99,4 +99,27 @@
     }, selector);
   });
 
+  it('should show display option for reportType:pdf', async function () {
+    const selector = '.page';
+    await captureScreen('slack_report_pdf_view', async () => {
+      await page.evaluate(() => $('#add-report').click());
+      await page.waitForNetworkIdle();
+      await page.type('textarea#report_description', 'Slack Report PDF');
+      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
+      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+    }, selector);
+  });
+
+  it('should save reportType:pdf with default display options', async function () {
+    const selector = '.page';
+    await captureScreen('slack_report_pdf_save', async () => {
+      await page.evaluate(() => $('#slackUserCountry_getCountry').click());
+      await page.type('input#channelID', 'ChannelID');
+      await page.click('.matomo-save-button input.btn');
+      await page.waitForNetworkIdle();
+    }, selector);
+  });
+
+  // TODO: Add tests for display options once core changes are merged
+
 });

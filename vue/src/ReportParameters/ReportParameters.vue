@@ -33,12 +33,24 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    defaultFormat: {
+      type: String,
+      required: true,
+    },
+    defaultDisplayFormat: {
+      type: Number,
+      required: true,
+    },
+    defaultEvolutionGraph: {
+      type: Boolean,
+      required: true,
+    },
   },
   components: {
     SelectSlackChannel,
   },
   emits: ['change'],
-  created() {
+  setup(props) {
     const {
       resetReportParametersFunctions,
       updateReportParametersFunctions,
@@ -47,8 +59,10 @@ export default defineComponent({
 
     if (!resetReportParametersFunctions[REPORT_TYPE]) {
       resetReportParametersFunctions[REPORT_TYPE] = (report: Report) => {
+        report.displayFormat = props.defaultDisplayFormat;
+        report.evolutionGraph = props.defaultEvolutionGraph;
+        report.formatslack = props.defaultFormat;
         report.slackChannelID = '';
-        report.formatslack = 'pdf'; // default format
       };
     }
 
@@ -58,14 +72,18 @@ export default defineComponent({
           return;
         }
 
-        if (report.parameters && report.parameters.slackChannelID) {
-          report.slackChannelID = report.parameters.slackChannelID;
-        }
+        ['displayFormat', 'evolutionGraph', 'slackChannelID'].forEach((field) => {
+          if (field in report.parameters) {
+            report[field] = report.parameters[field];
+          }
+        });
       };
     }
 
     if (!getReportParametersFunctions[REPORT_TYPE]) {
       getReportParametersFunctions[REPORT_TYPE] = (report: Report) => ({
+        displayFormat: report.displayFormat,
+        evolutionGraph: report.evolutionGraph,
         slackChannelID: report.slackChannelID,
       });
     }

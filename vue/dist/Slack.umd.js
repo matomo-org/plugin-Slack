@@ -147,7 +147,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/Slack/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=358f8184
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/Slack/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=5f5d6546
 
 const _hoisted_1 = {
   key: 0
@@ -162,7 +162,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => _ctx.$emit('change', 'slackChannelID', $event))
   }, null, 8, ["is-slack-oauth-token-added", "model-value"])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./plugins/Slack/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=358f8184
+// CONCATENATED MODULE: ./plugins/Slack/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=5f5d6546
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/Slack/vue/src/SelectSlackChannel/SelectSlackChannel.vue?vue&type=template&id=65e34972
 
@@ -262,13 +262,25 @@ const REPORT_TYPE = 'slack';
     isSlackOauthTokenAdded: {
       type: Boolean,
       default: false
+    },
+    defaultFormat: {
+      type: String,
+      required: true
+    },
+    defaultDisplayFormat: {
+      type: Number,
+      required: true
+    },
+    defaultEvolutionGraph: {
+      type: Boolean,
+      required: true
     }
   },
   components: {
     SelectSlackChannel: SelectSlackChannel
   },
   emits: ['change'],
-  created() {
+  setup(props) {
     const {
       resetReportParametersFunctions,
       updateReportParametersFunctions,
@@ -276,8 +288,10 @@ const REPORT_TYPE = 'slack';
     } = window;
     if (!resetReportParametersFunctions[REPORT_TYPE]) {
       resetReportParametersFunctions[REPORT_TYPE] = report => {
+        report.displayFormat = props.defaultDisplayFormat;
+        report.evolutionGraph = props.defaultEvolutionGraph;
+        report.formatslack = props.defaultFormat;
         report.slackChannelID = '';
-        report.formatslack = 'pdf'; // default format
       };
     }
     if (!updateReportParametersFunctions[REPORT_TYPE]) {
@@ -285,13 +299,17 @@ const REPORT_TYPE = 'slack';
         if (!(report !== null && report !== void 0 && report.parameters)) {
           return;
         }
-        if (report.parameters && report.parameters.slackChannelID) {
-          report.slackChannelID = report.parameters.slackChannelID;
-        }
+        ['displayFormat', 'evolutionGraph', 'slackChannelID'].forEach(field => {
+          if (field in report.parameters) {
+            report[field] = report.parameters[field];
+          }
+        });
       };
     }
     if (!getReportParametersFunctions[REPORT_TYPE]) {
       getReportParametersFunctions[REPORT_TYPE] = report => ({
+        displayFormat: report.displayFormat,
+        evolutionGraph: report.evolutionGraph,
         slackChannelID: report.slackChannelID
       });
     }

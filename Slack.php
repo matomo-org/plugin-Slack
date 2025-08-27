@@ -29,6 +29,8 @@ class Slack extends Plugin
 
     private static $availableParameters = array(
         self::SLACK_CHANNEL_ID_PARAMETER => true,
+        ScheduledReports::EVOLUTION_GRAPH_PARAMETER   => false,
+        ScheduledReports::DISPLAY_FORMAT_PARAMETER    => true,
     );
 
     private static $managedReportTypes = array(
@@ -74,13 +76,33 @@ class Slack extends Plugin
 
     public function validateReportParameters(&$parameters, $reportType)
     {
-        if (self::isSlackEvent($reportType)) {
-            $settings = StaticContainer::get(SystemSettings::class);
-            if (empty($settings->slackOauthToken->getValue())) {
-                throw new \Exception(Piwik::translate('Slack_OauthTokenRequiredErrorMessage'));
-            } elseif (empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
-                throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
-            }
+        if (!self::isSlackEvent($reportType)) {
+            return;
+        }
+
+        $reportFormat = $parameters[ScheduledReports::DISPLAY_FORMAT_PARAMETER];
+        $availableDisplayFormats = array_keys(ScheduledReports::getDisplayFormats());
+        if (!in_array($reportFormat, $availableDisplayFormats)) {
+            throw new \Exception(
+                Piwik::translate(
+                    'General_ExceptionInvalidAggregateReportsFormat',
+                    array($reportFormat, implode(', ', $availableDisplayFormats))
+                )
+            );
+        }
+
+        // evolutionGraph is an optional parameter
+        if (!isset($parameters[ScheduledReports::EVOLUTION_GRAPH_PARAMETER])) {
+            $parameters[ScheduledReports::EVOLUTION_GRAPH_PARAMETER] = ScheduledReports::EVOLUTION_GRAPH_PARAMETER_DEFAULT_VALUE;
+        } else {
+            $parameters[ScheduledReports::EVOLUTION_GRAPH_PARAMETER] = self::valueIsTrue($parameters[ScheduledReports::EVOLUTION_GRAPH_PARAMETER]);
+        }
+
+        $settings = StaticContainer::get(SystemSettings::class);
+        if (empty($settings->slackOauthToken->getValue())) {
+            throw new \Exception(Piwik::translate('Slack_OauthTokenRequiredErrorMessage'));
+        } elseif (empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
+            throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
         }
     }
 
@@ -220,6 +242,9 @@ class Slack extends Plugin
 
         $settings = StaticContainer::get(SystemSettings::class);
         $view->isSlackOauthTokenAdded = !empty($settings->slackOauthToken->getValue());
+        $view->defaultDisplayFormat = ScheduledReports::DEFAULT_DISPLAY_FORMAT;
+        $view->defaultFormat = ReportRenderer::PDF_FORMAT;
+        $view->defaultEvolutionGraph = ScheduledReports::EVOLUTION_GRAPH_PARAMETER_DEFAULT_VALUE;
         $out .= $view->render();
     }
 
@@ -257,5 +282,10 @@ class Slack extends Plugin
         $previousDate = Option::get($key);
 
         return $previousDate === $period->getRangeString();
+    }
+
+    private static function valueIsTrue($value)
+    {
+        return $value == 'true' || $value == 1 || $value == '1' || $value === true;
     }
 }
