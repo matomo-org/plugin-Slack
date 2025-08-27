@@ -119,7 +119,7 @@ class SlackApi
                 [
                     'token' => $this->token,
                     'files' => json_encode([['id' => $this->fileID]]),
-                    'channels' => $channel,
+                    'channel_id' => $channel,
                     'initial_comment' => $subject
                 ],
                 ['Content-Type' => 'multipart/form-data']
