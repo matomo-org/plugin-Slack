@@ -34,7 +34,7 @@ MATOMO_DIR=$(echo "$REPO_DIR" | sed -E 's|/plugins/.*$||')
 COMMAND=""
 # Use local PHP if setup
 if command -v php >/dev/null 2>&1; then
-    if "${MATOMO_DIR}/vendor/bin/phpstan" -v 2>&1 > /dev/null; then
+    if [ -f "${MATOMO_DIR}/vendor/bin/phpstan" ]; then
       COMMAND="${MATOMO_DIR}/vendor/bin/phpstan"
     fi
 fi
