@@ -64,15 +64,15 @@ STATUS=0
 
 ### Run PHPStan on newly created files. ###
 
-PHPSTAN_CREATED_CONFIG=phpstan/phpstan.created.neon
+PHPSTAN_CREATED_CONFIG=${MATOMO_DIR}/phpstan/phpstan.created.neon
 if [[ -f "$PHPSTAN_CREATED_CONFIG" ]]; then
   CHANGED_FILES=$(git diff --name-only 5.x-dev...HEAD --diff-filter=A | grep '\.php$' || true)
   if [ -z "$CHANGED_FILES" ]; then
     echo "No created PHP files"
   else
     echo "Running PHPstan at a very high level on new files"
-    CHANGED_FILES=`echo "$CHANGED_FILES" | sed -e 's/^\(.*\)$/"\1"/' | xargs -I{} echo "${PLUGIN_PATH}/{}"`
-    echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${PLUGIN_PATH}/${PHPSTAN_CREATED_CONFIG} || STATUS=1
+    CHANGED_FILES=`echo "$CHANGED_FILES" | sed -e 's/^\(.*\)$/"\1"/' | xargs -I{} echo "${MATOMO_DIR}/${PLUGIN_PATH}/{}"`
+    echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${MATOMO_DIR}/${PLUGIN_PATH}/${PHPSTAN_CREATED_CONFIG} || STATUS=1
   fi
 fi
 
