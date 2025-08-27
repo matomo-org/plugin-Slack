@@ -1,5 +1,5 @@
 includes:
     - ../phpstan.neon
 parameters:
-    level: 5
+    level: 8
     tmpDir: /tmp/phpstan/Slack/modified
