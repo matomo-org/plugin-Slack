@@ -20,7 +20,7 @@ REPO_DIR="$(git rev-parse --show-toplevel)"
 echo "Running pre-commit hook in repo: $REPO_DIR"
 
 if [[ "$REPO_DIR" =~ /plugins/(.*) ]]; then
-    PLUGIN_PATH="plugins/${BASH_REMATCH[1]}"
+    PLUGIN_PATH=${REPO_DIR}
 else
     echo "Not a plugin, not running any further checks"
     exit 1
@@ -64,15 +64,15 @@ STATUS=0
 
 ### Run PHPStan on newly created files. ###
 
-PHPSTAN_CREATED_CONFIG=${MATOMO_DIR}/phpstan/phpstan.created.neon
+PHPSTAN_CREATED_CONFIG=phpstan/phpstan.created.neon
+BRANCH_NAME=$(git branch --show-current)
 if [[ -f "$PHPSTAN_CREATED_CONFIG" ]]; then
-  CHANGED_FILES=$(git diff --name-only 5.x-dev...HEAD --diff-filter=A | grep '\.php$' || true)
+  CHANGED_FILES=$(git diff --name-only ${BRANCH_NAME} --diff-filter=A | grep '\.php$' || true)
   if [ -z "$CHANGED_FILES" ]; then
     echo "No created PHP files"
   else
     echo "Running PHPstan at a very high level on new files"
-    CHANGED_FILES=`echo "$CHANGED_FILES" | sed -e 's/^\(.*\)$/"\1"/' | xargs -I{} echo "${MATOMO_DIR}/${PLUGIN_PATH}/{}"`
-    echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${MATOMO_DIR}/${PLUGIN_PATH}/${PHPSTAN_CREATED_CONFIG} || STATUS=1
+    echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${PLUGIN_PATH}/${PHPSTAN_CREATED_CONFIG} || STATUS=1
   fi
 fi
 
@@ -81,12 +81,11 @@ fi
 ### Run PHPStan on modified files. ###
 PHPSTAN_MODIFIED_CONFIG=phpstan/phpstan.modified.neon
 if [[ -f "$PHPSTAN_MODIFIED_CONFIG" ]]; then
-  CHANGED_FILES=$(git diff --name-only 5.x-dev...HEAD --diff-filter=CM | grep '\.php$' || true)
+  CHANGED_FILES=$(git diff --name-only ${BRANCH_NAME} --diff-filter=CM | grep '\.php$' || true)
   if [ -z "$CHANGED_FILES" ]; then
     echo "No changed PHP files"
   else
     echo "Running PHPstan on modified files"
-    CHANGED_FILES=`echo "$CHANGED_FILES" | sed -e 's/^\(.*\)$/"\1"/' | xargs -I{} echo "${PLUGIN_PATH}/{}"`
     echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${PLUGIN_PATH}/${PHPSTAN_MODIFIED_CONFIG} || STATUS=1
   fi
 fi
