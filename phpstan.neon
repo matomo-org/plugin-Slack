@@ -17,5 +17,5 @@ parameters:
         # ../../ does not actually seem to give us anything
         # that ../plugins/ does not, but including it for
         # completeness.  It does not seem to slow down performance.
-        - ../../
+        - .
 
