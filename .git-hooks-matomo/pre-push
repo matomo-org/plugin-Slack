@@ -20,7 +20,7 @@ REPO_DIR="$(git rev-parse --show-toplevel)"
 echo "Running pre-commit hook in repo: $REPO_DIR"
 
 if [[ "$REPO_DIR" =~ /plugins/(.*) ]]; then
-    PLUGIN_PATH=${REPO_DIR}
+    PLUGIN_PATH="plugins/${BASH_REMATCH[1]}"
 else
     echo "Not a plugin, not running any further checks"
     exit 1
@@ -35,7 +35,7 @@ COMMAND=""
 # Use local PHP if setup
 if command -v php >/dev/null 2>&1; then
     if [ -f "${MATOMO_DIR}/vendor/bin/phpstan" ]; then
-      COMMAND="${MATOMO_DIR}/vendor/bin/phpstan"
+      COMMAND="cd ${MATOMO_DIR} && vendor/bin/phpstan"
     fi
 fi
 # Use ddev if setup (overridding local setup)
@@ -72,6 +72,7 @@ if [[ -f "$PHPSTAN_CREATED_CONFIG" ]]; then
     echo "No created PHP files"
   else
     echo "Running PHPstan at a very high level on new files"
+    CHANGED_FILES=`echo "$CHANGED_FILES" | sed -e 's/^\(.*\)$/"\1"/' | xargs -I{} echo "${PLUGIN_PATH}/{}"`
     echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${PLUGIN_PATH}/${PHPSTAN_CREATED_CONFIG} || STATUS=1
   fi
 fi
@@ -86,6 +87,7 @@ if [[ -f "$PHPSTAN_MODIFIED_CONFIG" ]]; then
     echo "No changed PHP files"
   else
     echo "Running PHPstan on modified files"
+    CHANGED_FILES=`echo "$CHANGED_FILES" | sed -e 's/^\(.*\)$/"\1"/' | xargs -I{} echo "${PLUGIN_PATH}/{}"`
     echo "$CHANGED_FILES" | xargs $COMMAND analyse -c ${PLUGIN_PATH}/${PHPSTAN_MODIFIED_CONFIG} || STATUS=1
   fi
 fi
