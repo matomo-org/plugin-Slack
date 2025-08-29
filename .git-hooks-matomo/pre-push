@@ -65,9 +65,9 @@ STATUS=0
 ### Run PHPStan on newly created files. ###
 
 PHPSTAN_CREATED_CONFIG=phpstan/phpstan.created.neon
-BRANCH_NAME=$(git branch --show-current)
+MAIN_BRANCH=$(git symbolic-ref --short refs/remotes/origin/HEAD)
 if [[ -f "$PHPSTAN_CREATED_CONFIG" ]]; then
-  CHANGED_FILES=$(git diff --name-only ${BRANCH_NAME} --diff-filter=A | grep '\.php$' || true)
+  CHANGED_FILES=$(git diff --name-only ${MAIN_BRANCH} --diff-filter=A | grep '\.php$' || true)
   if [ -z "$CHANGED_FILES" ]; then
     echo "No created PHP files"
   else
@@ -81,7 +81,7 @@ fi
 ### Run PHPStan on modified files. ###
 PHPSTAN_MODIFIED_CONFIG=phpstan/phpstan.modified.neon
 if [[ -f "$PHPSTAN_MODIFIED_CONFIG" ]]; then
-  CHANGED_FILES=$(git diff --name-only ${BRANCH_NAME} --diff-filter=CM | grep '\.php$' || true)
+  CHANGED_FILES=$(git diff --name-only ${MAIN_BRANCH} --diff-filter=CM | grep '\.php$' || true)
   if [ -z "$CHANGED_FILES" ]; then
     echo "No changed PHP files"
   else
