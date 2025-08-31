@@ -37,10 +37,6 @@ class ScheduleReportSlack
      */
     private $token;
 
-    /**
-     * @var string
-     */
-
     public function __construct(
         string $subject,
         string $fileName,
