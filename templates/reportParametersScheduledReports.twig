@@ -1,0 +1,7 @@
+<div
+        vue-entry="Slack.ReportParameters"
+        is-slack-oauth-token-added="{{ isSlackOauthTokenAdded|default(false)|json_encode }}"
+        default-format="{{ defaultFormat|default(null)|json_encode|e('html_attr') }}"
+        default-display-format="{{ defaultDisplayFormat|default(null)|json_encode|e('html_attr') }}"
+        default-evolution-graph="{{ defaultEvolutionGraph|default(false)|json_encode|e('html_attr') }}"
+></div>
