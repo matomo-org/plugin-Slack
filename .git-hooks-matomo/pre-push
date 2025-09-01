@@ -38,9 +38,8 @@ if command -v php >/dev/null 2>&1; then
       COMMAND="${MATOMO_DIR}/vendor/bin/phpstan"
       PLUGIN_PATH=''
     fi
-fi
-# Use ddev if setup (overridding local setup)
-if command -v ddev >/dev/null 2>&1; then
+elif command -v ddev >/dev/null 2>&1; then
+  # Use ddev if setup (overridding local setup)
   if [ -d "$MATOMO_DIR/.ddev" ]; then
     cd "$MATOMO_DIR" || exit 1
     if ddev status 2>&1 > /dev/null; then
