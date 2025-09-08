@@ -1,13 +1,13 @@
 {
   "Slack": {
     "ChannelId": "Slack Channel ID",
-    "NoOauthTokenAdded": "Please add your Slack OauthToken %1$shere%2$s.",
-    "OauthTokenRequiredErrorMessage": "Please add your Slack Oauth token in General Settings under Slack section.",
-    "OauthTokenSettingTitle": "Slack Oauth Token",
-    "OauthTokenSettingDescription": "Enter your Slack Oauth Token",
+    "NoOauthTokenAdded": "Please add your Slack OAuth Token %1$shere%2$s.",
+    "OauthTokenRequiredErrorMessage": "To enable Slack, provide your Slack OAuth Token in General settings > Slack.",
+    "OauthTokenSettingTitle": "Slack OAuth Token",
+    "OauthTokenSettingDescription": "Enter your Slack OAuth Token generated from your Slack. %1$sLearn more%2$s.",
     "PleaseFindYourReport": "Here is your %1$s report for %2$s",
     "SlackChannelIdRequiredErrorMessage": "Slack Channel ID cannot be empty.",
     "SlackChannel": "Slack Channel",
-    "SlackEnterYourSlackChannelIdHelpText": "Enter your Slack Channel ID"
+    "SlackEnterYourSlackChannelIdHelpText": "Enter the Slack Channel ID of the channel that will receive these reports. To find the ID, go to Slack and open the channel details > About tab. %1$sLearn more%2$s"
   }
 }

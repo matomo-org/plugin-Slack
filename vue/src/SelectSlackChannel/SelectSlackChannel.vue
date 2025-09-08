@@ -26,7 +26,7 @@
                 </span>
           <span
               v-else
-              v-text="translate('Slack_SlackEnterYourSlackChannelIdHelpText')"
+              v-html="$sanitize(getSlackChannelHelpText)"
           >
                 </span>
         </div>
@@ -67,6 +67,14 @@ export default defineComponent({
       return translate(
         'Slack_NoOauthTokenAdded',
         `<a href="${link}#/Slack" rel="noreferrer noopener" target="_blank">`,
+        '</a>',
+      );
+    },
+    getSlackChannelHelpText() {
+      const link = 'https://matomo.org/?post_type=faq&p=87026&preview=true#step-2-set-up-slack-in-matomo';
+      return translate(
+        'Slack_SlackEnterYourSlackChannelIdHelpText',
+        `<a href="${link}" rel="noreferrer noopener" target="_blank">`,
         '</a>',
       );
     },
