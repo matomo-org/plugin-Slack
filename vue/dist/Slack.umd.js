@@ -164,9 +164,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 // CONCATENATED MODULE: ./plugins/Slack/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=5f5d6546
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/Slack/vue/src/SelectSlackChannel/SelectSlackChannel.vue?vue&type=template&id=2b38ce8e
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/Slack/vue/src/SelectSlackChannel/SelectSlackChannel.vue?vue&type=template&id=46b88b86
 
-const SelectSlackChannelvue_type_template_id_2b38ce8e_hoisted_1 = {
+const SelectSlackChannelvue_type_template_id_46b88b86_hoisted_1 = {
   class: "slack"
 };
 const _hoisted_2 = {
@@ -175,9 +175,9 @@ const _hoisted_2 = {
 };
 const _hoisted_3 = ["innerHTML"];
 const _hoisted_4 = ["innerHTML"];
-function SelectSlackChannelvue_type_template_id_2b38ce8e_render(_ctx, _cache, $props, $setup, $data, $options) {
+function SelectSlackChannelvue_type_template_id_46b88b86_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Field = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("Field");
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", SelectSlackChannelvue_type_template_id_2b38ce8e_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createElementBlock"])("div", SelectSlackChannelvue_type_template_id_46b88b86_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_Field, {
     uicontrol: "text",
     name: "channelID",
     title: _ctx.translate('Slack_ChannelId'),
@@ -199,7 +199,7 @@ function SelectSlackChannelvue_type_template_id_2b38ce8e_render(_ctx, _cache, $p
     _: 1
   }, 8, ["title", "model-value", "disabled"])]);
 }
-// CONCATENATED MODULE: ./plugins/Slack/vue/src/SelectSlackChannel/SelectSlackChannel.vue?vue&type=template&id=2b38ce8e
+// CONCATENATED MODULE: ./plugins/Slack/vue/src/SelectSlackChannel/SelectSlackChannel.vue?vue&type=template&id=46b88b86
 
 // EXTERNAL MODULE: external "CoreHome"
 var external_CoreHome_ = __webpack_require__("19dc");
@@ -239,8 +239,7 @@ var external_CorePluginsAdmin_ = __webpack_require__("a5a2");
       return Object(external_CoreHome_["translate"])('Slack_NoOauthTokenAdded', `<a href="${link}#/Slack" rel="noreferrer noopener" target="_blank">`, '</a>');
     },
     getSlackChannelHelpText() {
-      const link = 'https://matomo.org/?post_type=faq&p=87026&preview=true#step-2-set-up-slack-in-matomo';
-      return Object(external_CoreHome_["translate"])('Slack_SlackEnterYourSlackChannelIdHelpText', `<a href="${link}" rel="noreferrer noopener" target="_blank">`, '</a>');
+      return Object(external_CoreHome_["translate"])('Slack_SlackEnterYourSlackChannelIdHelpText', Object(external_CoreHome_["externalLink"])('https://matomo.org/?post_type=faq&p=87026&preview=true#step-2-set-up-slack-in-matomo'), '</a>');
     }
   }
 }));
@@ -250,7 +249,7 @@ var external_CorePluginsAdmin_ = __webpack_require__("a5a2");
 
 
 
-SelectSlackChannelvue_type_script_lang_ts.render = SelectSlackChannelvue_type_template_id_2b38ce8e_render
+SelectSlackChannelvue_type_script_lang_ts.render = SelectSlackChannelvue_type_template_id_46b88b86_render
 
 /* harmony default export */ var SelectSlackChannel = (SelectSlackChannelvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-typescript/node_modules/cache-loader/dist/cjs.js??ref--15-0!./node_modules/babel-loader/lib!./node_modules/@vue/cli-plugin-typescript/node_modules/ts-loader??ref--15-2!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/Slack/vue/src/ReportParameters/ReportParameters.vue?vue&type=script&lang=ts

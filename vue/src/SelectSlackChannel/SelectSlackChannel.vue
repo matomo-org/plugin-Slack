@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { MatomoUrl, translate } from 'CoreHome';
+import { MatomoUrl, translate, externalLink } from 'CoreHome';
 import { Field } from 'CorePluginsAdmin';
 
 export default defineComponent({
@@ -71,10 +71,9 @@ export default defineComponent({
       );
     },
     getSlackChannelHelpText() {
-      const link = 'https://matomo.org/?post_type=faq&p=87026&preview=true#step-2-set-up-slack-in-matomo';
       return translate(
         'Slack_SlackEnterYourSlackChannelIdHelpText',
-        `<a href="${link}" rel="noreferrer noopener" target="_blank">`,
+        externalLink('https://matomo.org/?post_type=faq&p=87026&preview=true#step-2-set-up-slack-in-matomo'),
         '</a>',
       );
     },
