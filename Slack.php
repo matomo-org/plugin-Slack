@@ -339,6 +339,8 @@ class Slack extends Plugin
             case 'percentage_increase_more_than':
                 return Piwik::translate('CustomAlerts_ValuePercentageIncreasedMoreThan', [$alert['metric_matched'], $alert['value_old'] ?? '-', $alert['value_new']]);
         }
+
+        return '';
     }
 
     private function reportAlreadySent($report, Period $period)
