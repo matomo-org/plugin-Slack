@@ -34,6 +34,7 @@ class SlackApi
 
     private const SLACK_UPLOAD_URL_EXTERNAL = 'https://slack.com/api/files.getUploadURLExternal';
     private const SLACK_COMPLETE_UPLOAD_EXTERNAL = 'https://slack.com/api/files.completeUploadExternal';
+    private const SLACK_POST_MESSAGE_URL = 'https://slack.com/api/chat.postMessage';
 
     private const SLACK_TIMEOUT = 5000;
 
@@ -126,6 +127,29 @@ class SlackApi
             );
         } catch (\Exception $e) {
             $this->logger->debug('Slack error completeUploadExternal:' . $e->getMessage());
+            return false;
+        }
+
+        $data = json_decode($response, true);
+
+        return !empty($data['ok']);
+    }
+
+    public function sendMessage(string $message, string $channel): bool
+    {
+        try {
+            $response = $this->sendHttpRequest(
+                self::SLACK_POST_MESSAGE_URL,
+                self::SLACK_TIMEOUT,
+                [
+                    'token' => $this->token,
+                    'channel' => $channel,
+                    'text' => $message,
+                ],
+                ['Content-Type' => 'multipart/form-data']
+            );
+        } catch (\Exception $e) {
+            $this->logger->debug('Slack error sendMessage:' . $e->getMessage());
             return false;
         }
 

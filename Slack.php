@@ -17,6 +17,7 @@ use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\ScheduledReports\ScheduledReports;
+use Piwik\Site;
 use Piwik\View;
 use Piwik\Container\StaticContainer;
 use Piwik\ReportRenderer;
@@ -29,8 +30,8 @@ class Slack extends Plugin
 
     private static $availableParameters = array(
         self::SLACK_CHANNEL_ID_PARAMETER => true,
-        ScheduledReports::EVOLUTION_GRAPH_PARAMETER   => false,
-        ScheduledReports::DISPLAY_FORMAT_PARAMETER    => true,
+        ScheduledReports::EVOLUTION_GRAPH_PARAMETER => false,
+        ScheduledReports::DISPLAY_FORMAT_PARAMETER => true,
     );
 
     private static $managedReportTypes = array(
@@ -38,26 +39,28 @@ class Slack extends Plugin
     );
 
     private static $managedReportFormats = array(
-        ReportRenderer::PDF_FORMAT  => 'plugins/Morpheus/icons/dist/plugins/pdf.png',
-        ReportRenderer::CSV_FORMAT  => 'plugins/Morpheus/images/export.png',
-        ReportRenderer::TSV_FORMAT  => 'plugins/Morpheus/images/export.png',
+        ReportRenderer::PDF_FORMAT => 'plugins/Morpheus/icons/dist/plugins/pdf.png',
+        ReportRenderer::CSV_FORMAT => 'plugins/Morpheus/images/export.png',
+        ReportRenderer::TSV_FORMAT => 'plugins/Morpheus/images/export.png',
     );
 
     public function registerEvents()
     {
         return [
-            'ScheduledReports.getReportParameters'      => 'getReportParameters',
+            'ScheduledReports.getReportParameters' => 'getReportParameters',
             'ScheduledReports.validateReportParameters' => 'validateReportParameters',
-            'ScheduledReports.getReportMetadata'        => 'getReportMetadata',
-            'ScheduledReports.getReportTypes'           => 'getReportTypes',
-            'ScheduledReports.getReportFormats'         => 'getReportFormats',
-            'ScheduledReports.getRendererInstance'      => 'getRendererInstance',
-            'ScheduledReports.getReportRecipients'      => 'getReportRecipients',
-            'ScheduledReports.processReports'           => 'processReports',
-            'ScheduledReports.allowMultipleReports'     => 'allowMultipleReports',
-            'ScheduledReports.sendReport'               => 'sendReport',
+            'ScheduledReports.getReportMetadata' => 'getReportMetadata',
+            'ScheduledReports.getReportTypes' => 'getReportTypes',
+            'ScheduledReports.getReportFormats' => 'getReportFormats',
+            'ScheduledReports.getRendererInstance' => 'getRendererInstance',
+            'ScheduledReports.getReportRecipients' => 'getReportRecipients',
+            'ScheduledReports.processReports' => 'processReports',
+            'ScheduledReports.allowMultipleReports' => 'allowMultipleReports',
+            'ScheduledReports.sendReport' => 'sendReport',
             'Template.reportParametersScheduledReports' => 'templateReportParametersScheduledReports',
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
+            'CustomAlerts.validateReportParameters'  => 'validateCustomAlertReportParameters',
+            'CustomAlerts.sendNewAlerts' => 'sendNewAlerts',
         ];
     }
 
@@ -108,7 +111,7 @@ class Slack extends Plugin
 
     public function getReportMetadata(&$availableReportMetadata, $reportType, $idSite)
     {
-        if (! self::isSlackEvent($reportType)) {
+        if (!self::isSlackEvent($reportType)) {
             return;
         }
 
@@ -140,7 +143,7 @@ class Slack extends Plugin
 
     public function processReports(&$processedReports, $reportType, $outputType, $report)
     {
-        if (! self::isSlackEvent($reportType)) {
+        if (!self::isSlackEvent($reportType)) {
             return;
         }
 
@@ -153,7 +156,7 @@ class Slack extends Plugin
 
     public function getRendererInstance(&$reportRenderer, $reportType, $outputType, $report)
     {
-        if (! self::isSlackEvent($reportType)) {
+        if (!self::isSlackEvent($reportType)) {
             return;
         }
 
@@ -201,8 +204,9 @@ class Slack extends Plugin
         $additionalFiles,
         $period,
         $force
-    ) {
-        if (! self::isSlackEvent($reportType)) {
+    )
+    {
+        if (!self::isSlackEvent($reportType)) {
             return;
         }
         $logger = StaticContainer::get(LoggerInterface::class);
@@ -273,6 +277,68 @@ class Slack extends Plugin
     public function uninstall()
     {
         return;
+    }
+
+    public function validateCustomAlertReportParameters($parameters, $alertMedium)
+    {
+        if ($alertMedium === self::SLACK_TYPE && empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
+            throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
+        }
+    }
+
+    public function sendNewAlerts($triggeredAlerts): void
+    {
+        if (!empty($triggeredAlerts)) {
+            $enrichTriggerAlerts = new EnrichTriggeredAlerts();
+            $triggeredAlerts = $enrichTriggerAlerts->enrichTriggeredAlerts($triggeredAlerts);
+            $settings = StaticContainer::get(SystemSettings::class);
+            $token = $settings->slackOauthToken->getValue();
+            if (empty($token)) {
+                return;
+            }
+            $slackApi = new SlackApi($token);
+            $groupedAlerts = $this->groupAlertsByChannelId($triggeredAlerts);
+            foreach ($groupedAlerts as $slackChannelId => $alert) {
+                if (!$slackApi->sendMessage(implode("\n", $alert['message']), $slackChannelId)) {
+                    $logger = StaticContainer::get(LoggerInterface::class);
+                    $logger->debug('Slack alert failed for following alerts: ' . implode("\n", $alert['name']));
+                }
+            }
+        }
+    }
+
+    private function groupAlertsByChannelId(array $alerts): array
+    {
+        $groupedAlerts = [];
+        foreach ($alerts as $alert) {
+            if (!in_array(self::SLACK_TYPE, $alert['report_mediums']) || empty($alert['slack_channel_id'])) {
+                continue;
+            }
+            $metric = !empty($alert['reportMetric']) ? $alert['reportMetric'] : $alert['metric'];
+            $reportName = !empty($alert['reportName']) ? $alert['reportName'] : $alert['report'];
+            $groupedAlerts[$alert['slack_channel_id']]['message'][] = Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $alert['siteName'], $metric, $reportName, $this->transformAlertCondition($alert)]);
+            $groupedAlerts[$alert['slack_channel_id']]['name'][] = $alert['name'];
+        }
+
+        return $groupedAlerts;
+    }
+
+    private function transformAlertCondition(array $alert): string
+    {
+        switch ($alert['metric_condition']) {
+            case 'less_than':
+                return Piwik::translate('CustomAlerts_ValueIsLessThan', [$alert['metric_matched'], $alert['value_new']]);
+            case 'greater_than':
+                return Piwik::translate('CustomAlerts_ValueIsGreaterThan', [$alert['metric_matched'], $alert['value_new']]);
+            case 'decrease_more_than':
+                return Piwik::translate('CustomAlerts_ValueDecreasedMoreThan', [$alert['metric_matched'], $alert['value_old'] ?? '-', $alert['value_new']]);
+            case 'increase_more_than':
+                return Piwik::translate('CustomAlerts_ValueIncreasedMoreThan', [$alert['metric_matched'], $alert['value_old'] ?? '-', $alert['value_new']]);
+            case 'percentage_decrease_more_than':
+                return Piwik::translate('CustomAlerts_ValuePercentageDecreasedMoreThan', [$alert['metric_matched'], $alert['value_old'] ?? '-', $alert['value_new']]);
+            case 'percentage_increase_more_than':
+                return Piwik::translate('CustomAlerts_ValuePercentageIncreasedMoreThan', [$alert['metric_matched'], $alert['value_old'] ?? '-', $alert['value_new']]);
+        }
     }
 
     private function reportAlreadySent($report, Period $period)
