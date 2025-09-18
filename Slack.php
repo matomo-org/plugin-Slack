@@ -17,7 +17,6 @@ use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\ScheduledReports\ScheduledReports;
-use Piwik\Site;
 use Piwik\View;
 use Piwik\Container\StaticContainer;
 use Piwik\ReportRenderer;
@@ -204,8 +203,7 @@ class Slack extends Plugin
         $additionalFiles,
         $period,
         $force
-    )
-    {
+    ) {
         if (!self::isSlackEvent($reportType)) {
             return;
         }

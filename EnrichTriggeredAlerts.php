@@ -14,7 +14,6 @@ use Piwik\Plugins\CustomAlerts\Controller;
 
 class EnrichTriggeredAlerts extends Controller
 {
-
     public function __construct()
     {
         parent::__construct(StaticContainer::get('Piwik\Plugins\API\ProcessedReport'));
