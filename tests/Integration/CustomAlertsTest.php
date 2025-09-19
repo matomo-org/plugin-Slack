@@ -9,7 +9,6 @@
 
 namespace Piwik\Plugins\Slack\tests;
 
-use Piwik\Plugin\Manager as PluginManager;
 use Piwik\Plugins\CustomAlerts\CustomAlerts;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 use Piwik\Tests\Framework\TestingEnvironmentManipulator;
