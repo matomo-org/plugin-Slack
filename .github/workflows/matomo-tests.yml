@@ -1,7 +1,7 @@
 # Action for running tests
 # This file has been automatically created.
 # To recreate it you can run this command
-# ./console generate:test-action --plugin="Slack" --php-versions="7.2,8.4" --schedule-cron="0 5 * * 6"
+# ./console generate:test-action --plugin="Slack" --php-versions="7.2,8.4" --dependent-plugins="matomo-org/plugin-CustomAlerts" --schedule-cron="0 5 * * 6"
 
 name: Plugin Slack Tests
 
