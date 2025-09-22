@@ -26,7 +26,7 @@
   }
 
   before(function () {
-    testEnvironment.pluginsToLoad = ['CustomAlerts'];
+    testEnvironment.pluginsToLoad = ['CustomAlerts', 'Slack'];
     testEnvironment.save();
   });
 
@@ -89,7 +89,7 @@
     const selector = '.page';
     testEnvironment.configOverride.Slack = {slackOauthToken: 'token'};
     testEnvironment.save();
-    await captureScreen('slack_report_error', async () => {
+    await captureScreen('slack_alert_report_save_success', async () => {
       await page.evaluate(() => $('#alertName').val('Test Slack Alert').change());
       await page.evaluate(() => $('.conditionAndValue .select-wrapper ul li:last').click());
       await page.evaluate(() => $('#metricValue').val('2').change());
