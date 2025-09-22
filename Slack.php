@@ -314,11 +314,16 @@ class Slack extends Plugin
             }
             $metric = !empty($alert['reportMetric']) ? $alert['reportMetric'] : $alert['metric'];
             $reportName = !empty($alert['reportName']) ? $alert['reportName'] : $alert['report'];
-            $groupedAlerts[$alert['slack_channel_id']]['message'][] = Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $alert['siteName'], $metric, $reportName, $this->transformAlertCondition($alert)]);
+            $groupedAlerts[$alert['slack_channel_id']]['message'][] = $this->getAlertMessage($alert, $metric, $reportName);
             $groupedAlerts[$alert['slack_channel_id']]['name'][] = $alert['name'];
         }
 
         return $groupedAlerts;
+    }
+
+    public function getAlertMessage(array $alert, string $metric, string $reportName): string
+    {
+        return Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $alert['siteName'], $metric, $reportName, $this->transformAlertCondition($alert)]);
     }
 
     private function transformAlertCondition(array $alert): string

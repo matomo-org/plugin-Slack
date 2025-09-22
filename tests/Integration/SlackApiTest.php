@@ -92,4 +92,30 @@ class SlackApiTest extends IntegrationTestCase
 
         $this->assertTrue($helperMock->uploadFile('test file', 'test.csv', "a,b,c", 'channelID'));
     }
+
+    public function testSendMessageShouldReturnFalse()
+    {
+        $helperMock = $this->getMockBuilder(SlackApi::class)
+            ->setMethods([
+                'sendHttpRequest',
+            ])
+            ->setConstructorArgs(array('token'))
+            ->getMock();
+        $helperMock->expects($this->once())->method('sendHttpRequest')->willReturn('');
+
+        $this->assertFalse($helperMock->sendMessage('test message', 'channelID'));
+    }
+
+    public function testSendMessageShouldReturnTrue()
+    {
+        $helperMock = $this->getMockBuilder(SlackApi::class)
+            ->setMethods([
+                'sendHttpRequest',
+            ])
+            ->setConstructorArgs(array('token'))
+            ->getMock();
+        $helperMock->expects($this->once())->method('sendHttpRequest')->willReturn('{"ok":true,"channel":"channelID"}');
+
+        $this->assertTrue($helperMock->sendMessage('test message', 'channelID'));
+    }
 }

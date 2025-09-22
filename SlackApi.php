@@ -158,7 +158,7 @@ class SlackApi
         return !empty($data['ok']);
     }
 
-    private function sendHttpRequest(string $url, int $timeout, array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false)
+    public function sendHttpRequest(string $url, int $timeout, array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false)
     {
         if ($requestBodyAsString && !empty($requestBody[0])) {
             $requestBody = $requestBody[0];
