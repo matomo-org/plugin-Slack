@@ -77,9 +77,9 @@
     testEnvironment.configOverride.Slack = {slackOauthToken: 'token'};
     testEnvironment.save();
     await captureScreen('slack_report_error', async () => {
-      await page.evaluate(() => $('#alertName').val('Test Slack Alert').change());
+      await page.type('#alertName', 'Test Slack Alert');
       await page.evaluate(() => $('.conditionAndValue .select-wrapper ul li:last').click());
-      await page.evaluate(() => $('#metricValue').val('2').change());
+      await page.type('#metricValue', '2');
       await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
     }, selector);
@@ -90,10 +90,7 @@
     testEnvironment.configOverride.Slack = {slackOauthToken: 'token'};
     testEnvironment.save();
     await captureScreen('slack_alert_report_save_success', async () => {
-      await page.evaluate(() => $('#alertName').val('Test Slack Alert').change());
-      await page.evaluate(() => $('.conditionAndValue .select-wrapper ul li:last').click());
-      await page.evaluate(() => $('#metricValue').val('2').change());
-      await page.evaluate(() => $('input#channelID').val('ChannelID').change());
+      await page.type('input#channelID', 'ChannelID');
       await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
     }, selector);
