@@ -289,8 +289,7 @@ class Slack extends Plugin
         $additionalFiles,
         $period,
         $force
-    )
-    {
+    ) {
         if (!self::isSlackEvent($reportType)) {
             return;
         }

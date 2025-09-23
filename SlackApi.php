@@ -41,8 +41,7 @@ class SlackApi
     public function __construct(
         #[\SensitiveParameter]
         string $token
-    )
-    {
+    ) {
         $this->token = $token;
         $this->logger = StaticContainer::get(LoggerInterface::class);
     }
