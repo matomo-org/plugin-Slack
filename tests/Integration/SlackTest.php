@@ -91,6 +91,28 @@ class ScheduledReportsTest extends IntegrationTestCase
         $this->addReport($userLogin = 'userlogin', $idSite = 3, 'html');
     }
 
+    /**
+     * @dataProvider getAlertData
+     */
+    public function testGetAlertMessage($alert, $expectedMessage)
+    {
+        $slack = StaticContainer::get(Slack::class);
+        Fixture::loadAllTranslations();
+        $this->assertSame($expectedMessage, $slack->getAlertMessage($alert, 'Unique Visitors', 'Visits Summary'));
+    }
+
+    public function getAlertData()
+    {
+        return [
+            [['name' => 'Alert1', 'siteName' => 'test.com', 'metric_condition' => 'less_than', 'metric_matched' => '5', 'value_new' => '1', 'value_old' => '2'], 'Alert1 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary is 1 which is less than 5.'],
+            [['name' => 'Alert2', 'siteName' => 'test.com', 'metric_condition' => 'greater_than', 'metric_matched' => '8', 'value_new' => '10', 'value_old' => '2'], 'Alert2 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary is 10 which is greater than 8.'],
+            [['name' => 'Alert3', 'siteName' => 'test.com', 'metric_condition' => 'decrease_more_than', 'metric_matched' => '5', 'value_new' => '8', 'value_old' => '15'], 'Alert3 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary decreased more than 5 from 15 to 8.'],
+            [['name' => 'Alert4', 'siteName' => 'test.com', 'metric_condition' => 'increase_more_than', 'metric_matched' => '5', 'value_new' => '30', 'value_old' => '20'], 'Alert4 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary increased more than 5 from 20 to 30.'],
+            [['name' => 'Alert5', 'siteName' => 'test.com', 'metric_condition' => 'percentage_decrease_more_than', 'metric_matched' => '5', 'value_new' => '8', 'value_old' => '15'], 'Alert5 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary decreased more than 5% from 15 to 8.'],
+            [['name' => 'Alert6', 'siteName' => 'test.com', 'metric_condition' => 'percentage_increase_more_than', 'metric_matched' => '5', 'value_new' => '30', 'value_old' => '20'], 'Alert6 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary increased more than 5% from 20 to 30.'],
+        ];
+    }
+
     private function assertHasReport($login, $idSite)
     {
         $report = $this->getReport($login, $idSite);

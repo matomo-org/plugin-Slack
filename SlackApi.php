@@ -34,6 +34,7 @@ class SlackApi
 
     private const SLACK_UPLOAD_URL_EXTERNAL = 'https://slack.com/api/files.getUploadURLExternal';
     private const SLACK_COMPLETE_UPLOAD_EXTERNAL = 'https://slack.com/api/files.completeUploadExternal';
+    private const SLACK_POST_MESSAGE_URL = 'https://slack.com/api/chat.postMessage';
 
     private const SLACK_TIMEOUT = 5000;
 
@@ -64,6 +65,14 @@ class SlackApi
         return false;
     }
 
+    /**
+     *
+     * Get the URL to upload the file
+     *
+     * @param string $fileName
+     * @param int $fileLength
+     * @return string
+     */
     public function getUploadURLExternal(string $fileName, int $fileLength): string
     {
         try {
@@ -92,6 +101,14 @@ class SlackApi
         return '';
     }
 
+    /**
+     *
+     * Upload the file contents to the URL received from getUploadURLExternal method
+     *
+     * @param string $uploadURL
+     * @param string $fileContents
+     * @return bool
+     */
     public function sendFile(string $uploadURL, string $fileContents): bool
     {
         try {
@@ -110,6 +127,15 @@ class SlackApi
         return strtolower($response) === ('ok - ' . strlen($fileContents));
     }
 
+
+    /**
+     *
+     * Post the uploaded file to a channel
+     *
+     * @param string $channel
+     * @param string $subject
+     * @return bool
+     */
     public function completeUploadExternal(string $channel, string $subject): bool
     {
         try {
@@ -134,7 +160,55 @@ class SlackApi
         return !empty($data['ok']);
     }
 
-    private function sendHttpRequest(string $url, int $timeout, array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false)
+    /**
+     *
+     * Send a text message to a Slack channel
+     *
+     * @param string $message
+     * @param string $channel
+     * @return bool
+     */
+    public function sendMessage(string $message, string $channel): bool
+    {
+        if (empty($message) || empty($channel)) {
+            $this->logger->debug('Empty message or channel for sending message');
+            return false;
+        }
+
+        try {
+            $response = $this->sendHttpRequest(
+                self::SLACK_POST_MESSAGE_URL,
+                self::SLACK_TIMEOUT,
+                [
+                    'token' => $this->token,
+                    'channel' => $channel,
+                    'text' => $message,
+                ],
+                ['Content-Type' => 'multipart/form-data']
+            );
+        } catch (\Exception $e) {
+            $this->logger->debug('Slack error sendMessage:' . $e->getMessage());
+            return false;
+        }
+
+        $data = json_decode($response, true);
+
+        return !empty($data['ok']);
+    }
+
+    /**
+     *
+     * Wrapper to send HTTP request
+     *
+     * @param string $url
+     * @param int $timeout
+     * @param array $requestBody
+     * @param array $additionalHeaders
+     * @param $requestBodyAsString
+     * @return array|bool|int[]|string
+     * @throws \Exception
+     */
+    public function sendHttpRequest(string $url, int $timeout, array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false)
     {
         if ($requestBodyAsString && !empty($requestBody[0])) {
             $requestBody = $requestBody[0];

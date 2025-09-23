@@ -8,6 +8,7 @@
     "PleaseFindYourReport": "Here is your %1$s report for %2$s",
     "SlackChannelIdRequiredErrorMessage": "Slack Channel ID cannot be empty.",
     "SlackChannel": "Slack Channel",
-    "SlackEnterYourSlackChannelIdHelpText": "Enter the Slack Channel ID of the channel that will receive these reports. To find the ID, go to Slack and open the channel details > About tab. %1$sLearn more%2$s"
+    "SlackEnterYourSlackChannelIdHelpText": "Enter the Slack Channel ID of the channel that will receive these reports. To find the ID, go to Slack and open the channel details > About tab. %1$sLearn more%2$s",
+    "SlackAlertContent": "%1$s has been triggered for website %2$s as the metric %3$s in report %4$s %5$s."
   }
 }
