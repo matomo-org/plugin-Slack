@@ -116,6 +116,12 @@ class Slack extends Plugin
         } elseif (empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
             throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
         }
+        $slackChannels = explode(',', (string) $parameters[self::SLACK_CHANNEL_ID_PARAMETER]);
+        foreach ($slackChannels as $slackChannel) {
+            if (!ctype_alnum($slackChannel)) {
+                throw new \Exception(Piwik::translate('Slack_SlackChannelIdInvalidErrorMessage'));
+            }
+        }
     }
 
     /**
@@ -384,8 +390,15 @@ class Slack extends Plugin
      */
     public function validateCustomAlertReportParameters($parameters, $alertMedium)
     {
-        if ($alertMedium === self::SLACK_TYPE && empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
-            throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
+        if ($alertMedium === self::SLACK_TYPE) {
+            $settings = StaticContainer::get(SystemSettings::class);
+            if (empty($settings->slackOauthToken->getValue())) {
+                throw new \Exception(Piwik::translate('Slack_OauthTokenRequiredErrorMessage'));
+            } elseif (empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
+                throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
+            } elseif (!ctype_alnum($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
+                throw new \Exception(Piwik::translate('Slack_SlackChannelIdInvalidErrorMessage'));
+            }
         }
     }
 

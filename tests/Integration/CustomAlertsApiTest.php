@@ -9,6 +9,8 @@
 
 namespace Piwik\Plugins\Slack\tests;
 
+use Piwik\Container\StaticContainer;
+use Piwik\Plugins\Slack\SystemSettings;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 use Piwik\Tests\Framework\TestingEnvironmentManipulator;
@@ -43,11 +45,39 @@ class CustomAlertsApiTest extends IntegrationTestCase
         $this->idSite = Fixture::createWebsite('2012-08-09 11:22:33');
     }
 
+    public function testAddAlertShouldThrowExceptionIfSlackOauthTokenNotSet()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_OauthTokenRequiredErrorMessage');
+        $this->addAlert('', false);
+    }
+
+    public function testAddAlertShouldThrowExceptionIfSlackChannelIdNotEmptyButOauthTokenNotSet()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_OauthTokenRequiredErrorMessage');
+        $this->addAlert('channelID', false);
+    }
+
     public function testAddAlertShouldThrowExceptionIfEmptySlackChannelId()
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Slack_SlackChannelIdRequiredErrorMessage');
         $this->addAlert();
+    }
+
+    public function testAddAlertShouldThrowExceptionIfInvalidSlackChannelId()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_SlackChannelIdInvalidErrorMessage');
+        $this->addAlert('ChanneldId1@123');
+    }
+
+    public function testAddAlertShouldThrowExceptionIfInvalidSlackChannelId2()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_SlackChannelIdInvalidErrorMessage');
+        $this->addAlert('ChannelID1,ChannelID2');
     }
 
     public function testAddAlertSuccess()
@@ -76,8 +106,13 @@ class CustomAlertsApiTest extends IntegrationTestCase
         $this->assertEquals('channelIDNew', $alert['slack_channel_id']);
     }
 
-    private function addAlert($slackChannelId = '')
+    private function addAlert($slackChannelId = '', $createToken = true)
     {
+        if ($createToken) {
+            $settings = StaticContainer::get(SystemSettings::class);
+            $settings->slackOauthToken->setValue('test123');
+        }
+
         return $this->api->addAlert(
             'Test Slack and Email',
             $this->idSite,
