@@ -10,6 +10,7 @@
 namespace Piwik\Plugins\Slack\tests;
 
 use Piwik\Container\StaticContainer;
+use Piwik\Piwik;
 use Piwik\Plugins\ScheduledReports\API;
 use Piwik\Plugins\ScheduledReports\ScheduledReports;
 use Piwik\Plugins\Slack\Slack;
@@ -111,6 +112,72 @@ class ScheduledReportsTest extends IntegrationTestCase
             [['name' => 'Alert5', 'siteName' => 'test.com', 'metric_condition' => 'percentage_decrease_more_than', 'metric_matched' => '5', 'value_new' => '8', 'value_old' => '15'], 'Alert5 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary decreased more than 5% from 15 to 8.'],
             [['name' => 'Alert6', 'siteName' => 'test.com', 'metric_condition' => 'percentage_increase_more_than', 'metric_matched' => '5', 'value_new' => '30', 'value_old' => '20'], 'Alert6 has been triggered for website test.com as the metric Unique Visitors in report Visits Summary increased more than 5% from 20 to 30.'],
         ];
+    }
+
+    public function testValidateReportParametersSlackTokenNotSetShouldThrowOauthException()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_OauthTokenRequiredErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+    }
+
+    public function testValidateReportParametersSlackTokenNotSetShouldThrowSlackChannelIdEmptyException()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_SlackChannelIdRequiredErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+    }
+
+    public function testValidateReportParametersSlackTokenNotSetShouldThrowSlackChannelIdEmptyException2()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_SlackChannelIdRequiredErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => ''];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+    }
+
+    public function testValidateReportParametersSlackTokenNotSetShouldThrowSlackChannelIdInvalidException()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_SlackChannelIdInvalidErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123@11'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+    }
+
+    public function testValidateReportParametersSlackTokenNotSetShouldThrowSlackChannelIdInvalidException2()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Slack_SlackChannelIdInvalidErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123,Demo@11'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+    }
+
+    public function testValidateReportParametersSlackTokenShouldNotThrowAnyException()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+        $this->assertNotEmpty($parameters);
+    }
+
+    public function testValidateReportParametersSlackTokenShouldNotThrowAnyException2()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123,dEmoA,abcd123'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+        $this->assertNotEmpty($parameters);
     }
 
     private function assertHasReport($login, $idSite)
