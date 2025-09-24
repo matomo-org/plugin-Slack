@@ -4,29 +4,28 @@
     "version": "5.0.0",
     "theme": false,
     "require": {
-        "matomo": ">=5.4.0-b4,<6.0.0-b1"
+        "matomo": ">=5.0.0-b4,<6.0.0-b1"
     },
     "authors": [
         {
             "name": "Matomo",
-            "email": "",
-            "homepage": ""
+            "email": "hello@matomo.org",
+            "homepage": "https://matomo.org"
         }
     ],
     "support": {
-        "email": "",
-        "issues": "",
-        "forum": "",
-        "irc": "",
-        "wiki": "",
-        "source": "",
-        "docs": "",
-        "rss": ""
+        "email": "hello@matomo.org",
+        "issues": "https://github.com/matomo-org/plugin-Slack/issues",
+        "forum": "https://forum.matomo.org",
+        "source": "https://github.com/matomo-org/plugin-Slack",
+        "wiki": "https://github.com/matomo-org/plugin-Slack/wiki"
     },
     "homepage": "",
     "license": "GPL v3+",
     "keywords": [
         "Slack",
-        "ScheduledReports"
-    ]
+        "ScheduledReports",
+        "CustomAlerts"
+    ],
+    "category": "integration"
 }
