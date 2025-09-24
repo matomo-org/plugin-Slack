@@ -2,7 +2,7 @@
 
 Deliver the right information to stakeholders automatically, exactly when they need it. Save time with scheduled delivery to Slack channels, email, or mobile instead of manual sharing. Try now - it’s free!
 
-[![Build Status](https://github.com/matomo-org/plugin-Slack/actions/workflows/matomo-tests.yml/badge.svg?branch=5.x-dev)](https://github.com/matomo-org/plugin-Slack/actions/workflows/matomo-tests.yml)
+[![Build Status](https://github.com/matomo-org/plugin-Slack/actions/workflows/matomo-tests.yml/badge.svg)](https://github.com/matomo-org/plugin-Slack/actions/workflows/matomo-tests.yml)
 
 ## Description
 
