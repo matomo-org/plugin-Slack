@@ -30,7 +30,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $this->makeSetting('slackOauthToken', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = Piwik::translate('Slack_OauthTokenSettingTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
-            $link = Url::addCampaignParametersToMatomoLink('https://matomo.org/?post_type=faq&p=87125&preview=true', null, null, 'App.SystemSettings.Slack') . '#step-1-get-a-slack-oauth-token';
+            $link = Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/reports/how-to-get-the-slack-oauth-token-for-matomo-integration/', null, null, 'App.SystemSettings.Slack') . '#step-1-get-a-slack-oauth-token';
             $field->inlineHelp = Piwik::translate('Slack_OauthTokenSettingDescription', ['<a href="' . $link . '" target="_blank" rel="noreferrer noopener">', '</a>']);
             $field->transform = function ($value) {
                 return trim($value);

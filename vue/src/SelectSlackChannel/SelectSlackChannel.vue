@@ -73,7 +73,7 @@ export default defineComponent({
     getSlackChannelHelpText() {
       return translate(
         'Slack_SlackEnterYourSlackChannelIdHelpText',
-        externalLink('https://matomo.org/?post_type=faq&p=87026&preview=true#step-2-set-up-slack-in-matomo'),
+        externalLink('https://matomo.org/faq/reports/how-to-integrate-slack-for-scheduled-reports/#step-2-set-up-slack-in-matomo'),
         '</a>',
       );
     },
