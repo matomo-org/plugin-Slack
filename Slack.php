@@ -319,7 +319,9 @@ class Slack extends Plugin
         $subject = Piwik::translate('Slack_PleaseFindYourReport', [$periods[$report['period']], $reportSubject]);
         $channelId = $report['parameters'][self::SLACK_CHANNEL_ID_PARAMETER];
         $scheduleReportSlack = new ScheduleReportSlack($subject, $filename, $contents, $channelId, $token);
-        $scheduleReportSlack->send();
+        if ($scheduleReportSlack->send() && !$force) {
+            $this->markReportAsSent($report, $period);
+        }
     }
 
     /**
@@ -501,6 +503,13 @@ class Slack extends Plugin
         $previousDate = Option::get($key);
 
         return $previousDate === $period->getRangeString();
+    }
+
+    private function markReportAsSent($report, Period $period)
+    {
+        $key = ScheduledReports::OPTION_KEY_LAST_SENT_DATERANGE . $report['idreport'];
+
+        Option::set($key, $period->getRangeString());
     }
 
     private static function valueIsTrue($value)
