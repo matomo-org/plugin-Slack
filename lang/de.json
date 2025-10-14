@@ -1,0 +1,6 @@
+{
+    "Slack": {
+        "PleaseFindYourReport": "Hier ist Ihr %1$s Bericht für %2$s",
+        "SlackChannel": "Slack Channel"
+    }
+}
