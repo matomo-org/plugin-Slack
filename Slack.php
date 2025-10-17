@@ -15,6 +15,7 @@ use Piwik\Period;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\ScheduledReports\ScheduledReports;
+use Piwik\SettingsPiwik;
 use Piwik\View;
 use Piwik\Container\StaticContainer;
 use Piwik\ReportRenderer;
@@ -466,7 +467,14 @@ class Slack extends Plugin
      */
     public function getAlertMessage(array $alert, string $metric, string $reportName): string
     {
-        return Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $alert['siteName'], $metric, $reportName, $this->transformAlertCondition($alert)]);
+        $settingURL = SettingsPiwik::getPiwikUrl();
+        if (stripos($settingURL, 'index.php') === false) {
+            $settingURL .= 'index.php';
+        }
+        $settingURL .= '?idSite=' . $alert['idsite'];
+        $siteName = $alert['siteName'];
+        $siteWithLink = "<$settingURL|$siteName>";
+        return Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $siteWithLink, $metric, $reportName, $this->transformAlertCondition($alert)]);
     }
 
     /**

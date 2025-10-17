@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.2 - 2025-10-27
+- Update Slack alert message to mention Matomo instance along with idSite
+
 5.0.1 - 2025-10-10
 - Fix markReportAsSent method was missing
 
