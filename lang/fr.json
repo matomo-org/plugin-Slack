@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID du canal Slack",
+        "NoOauthTokenAdded": "Veuillez ajouter votre jeton OAuth Slack %1$sici%2$s.",
+        "OauthTokenRequiredErrorMessage": "Pour activer Slack, fournissez votre jeton OAuth Slack dans Paramètres généraux &gt; Slack.",
+        "OauthTokenSettingDescription": "Saisissez votre jeton OAuth Slack généré depuis votre Slack. %1$sEn savoir plus%2$s.",
+        "OauthTokenSettingTitle": "Jeton OAuth Slack",
+        "PleaseFindYourReport": "Voici votre rapport %1$s pour %2$s",
+        "SlackAlertContent": "%1$s a été déclenché pour le site web %2$s car la métrique %3$s dans le rapport %4$s %5$s.",
+        "SlackChannel": "Canal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID de canal Slack invalide, seules les valeurs alphanumériques sont autorisées.",
+        "SlackChannelIdRequiredErrorMessage": "L’ID du canal Slack ne peut pas être vide.",
+        "SlackEnterYourSlackChannelIdHelpText": "Saisissez l’ID du canal Slack qui recevra ces rapports. Pour trouver l’ID, allez dans Slack et ouvrez les détails du canal &gt; onglet À propos. %1$sEn savoir plus%2$s"
+    }
+}
