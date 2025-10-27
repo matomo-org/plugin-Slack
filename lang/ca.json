@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID del canal de Slack",
+        "NoOauthTokenAdded": "Si us plau, afegiu el vostre token OAuth de Slack %1$saquí%2$s.",
+        "OauthTokenRequiredErrorMessage": "Per activar Slack, proporciona el teu token OAuth de Slack a Configuració general &gt; Slack.",
+        "OauthTokenSettingDescription": "Introdueix el teu token OAuth de Slack generat des del teu Slack. %1$sMés informació%2$s.",
+        "OauthTokenSettingTitle": "Token d'OAuth de Slack",
+        "PleaseFindYourReport": "Aquí teniu %1$s l'informe de %2$s",
+        "SlackAlertContent": "S'ha activat %1$s per al lloc web %2$s com a mètrica %3$s a l'informe %4$s %5$s.",
+        "SlackChannel": "Canal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID de canal de Slack no vàlid, només es permeten valors alfanumèrics.",
+        "SlackChannelIdRequiredErrorMessage": "L'ID del canal de Slack no pot estar buit.",
+        "SlackEnterYourSlackChannelIdHelpText": "Introduïu l'ID del canal de Slack que rebrà aquests informes. Per trobar l'ID, aneu a Slack i obriu els detalls del canal &gt; pestanya Quant a. %1$sMés informació%2$s"
+    }
+}
