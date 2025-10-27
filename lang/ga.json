@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Aitheantas Cainéal Slack",
+        "NoOauthTokenAdded": "Cuir do chomhartha Slack OAuth %1$sanseo%2$s leis, le do thoil.",
+        "OauthTokenRequiredErrorMessage": "Chun Slack a chumasú, cuir do Chomhartha OAuth Slack ar fáil i socruithe Ginearálta &gt; Slack.",
+        "OauthTokenSettingDescription": "Cuir isteach do Chomhartha OAuth Slack a gineadh ó do Slack. %1$sFoghlaim tuilleadh%2$s.",
+        "OauthTokenSettingTitle": "Comhartha OAuth Slack",
+        "PleaseFindYourReport": "Seo do thuairisc %1$s do %2$s",
+        "SlackAlertContent": "Tá %1$s curtha i ngníomh don suíomh Gréasáin %2$s mar an mhéadrach %3$s sa tuarascáil %4$s %5$s.",
+        "SlackChannel": "Cainéal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID Cainéal Slack neamhbhailí, ní cheadaítear ach luachanna alfa-uimhriúla.",
+        "SlackChannelIdRequiredErrorMessage": "Ní féidir ID Cainéal Slack a bheith folamh.",
+        "SlackEnterYourSlackChannelIdHelpText": "Cuir isteach ID Cainéal Slack an chainéil a gheobhaidh na tuarascálacha seo. Chun an ID a fháil, téigh go Slack agus oscail sonraí an chainéil &gt; an cluaisín Maidir Linn. %1$sFoghlaim tuilleadh%2$s"
+    }
+}
