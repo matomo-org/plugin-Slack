@@ -1,6 +1,15 @@
 {
     "Slack": {
+        "ChannelId": "Slack-Channel-ID",
+        "NoOauthTokenAdded": "Bitte fügen Sie %1$shier%2$s Ihr Slack OAuth-Token hinzu.",
+        "OauthTokenRequiredErrorMessage": "Um Slack zu aktivieren, geben Sie Ihr Slack OAuth-Token unter Allgemeine Einstellungen &gt; Slack ein.",
+        "OauthTokenSettingDescription": "Geben Sie Ihren von Slack generierten OAuth-Token ein. %1$sErfahren Sie mehr%2$s.",
+        "OauthTokenSettingTitle": "Slack OAuth Token",
         "PleaseFindYourReport": "Hier ist Ihr %1$s Bericht für %2$s",
-        "SlackChannel": "Slack Channel"
+        "SlackAlertContent": "%1$s wurde für die Webseite %2$s ausgelöst, da die Metrik %3$s im Bericht %4$s %5$s.",
+        "SlackChannel": "Slack Channel",
+        "SlackChannelIdInvalidErrorMessage": "Ungültige Slack-Channel-ID, nur alphanumerische Werte sind zulässig.",
+        "SlackChannelIdRequiredErrorMessage": "Slack Channel ID darf nicht leer sein.",
+        "SlackEnterYourSlackChannelIdHelpText": "Geben Sie die Slack Channel ID des Channels ein, der diese Berichte erhalten soll. Um die ID zu finden, gehen Sie zu Slack und öffnen Sie die Channel-Details &gt; Über Tab. %1$sErfahren Sie mehr%2$s"
     }
 }

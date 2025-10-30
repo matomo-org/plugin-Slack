@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Slack kanalı kimliği",
+        "NoOauthTokenAdded": "Lütfen Slack OAuth kodunuzu %1$sburaya%2$s ekleyin.",
+        "OauthTokenRequiredErrorMessage": "Slack kullanmak için, General ayarlar &gt; Slack bölümünden Slack OAuth kodunuzu yazın.",
+        "OauthTokenSettingDescription": "Slack tarafından oluşturulan Slack Oauth kodunuzu yazın. %1$sAyrıntılı bilgi alın%2$s.",
+        "OauthTokenSettingTitle": "Slack OAuth kodu",
+        "PleaseFindYourReport": "%2$s için %1$s raporunuz",
+        "SlackAlertContent": "%2$s sitesi için %4$s %5$s raporundaki %3$s ölçümü olarak %1$s tetiklendi.",
+        "SlackChannel": "Slack kanalı",
+        "SlackChannelIdInvalidErrorMessage": "Slack kanalı kimliği geçersiz. Yalnızca harf ve rakam karakterleri kullanılabilir.",
+        "SlackChannelIdRequiredErrorMessage": "Slack kanalı kimliği boş olamaz.",
+        "SlackEnterYourSlackChannelIdHelpText": "Bu raporları alacak Slack kanalının kimliğini yazın. Kimliği bulmak için Slack üzerinde kanal ayrıntıları &gt; Hakkında sekmesini açın. %1$sAyrıntılı bilgi alın%2$s"
+    }
+}

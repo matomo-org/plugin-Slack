@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Αναγνωριστικό Slack Channel",
+        "NoOauthTokenAdded": "Παρακαλούμε εισαγάγετε το τεκμήριο Slack OAtuh %1$sεδώ%2$s.",
+        "OauthTokenRequiredErrorMessage": "Για να ενεργοποιηθεί το Slack, δώστε το τεκμήριό σας για το Slack OAuth στις Γενικές Ρυθμίσεις &gt; Slack.",
+        "OauthTokenSettingDescription": "Εισαγάγετε το τεκμήριο Slack OAtuh που σας δόθηκε από το Slack. %1$sΜάθετε περισσότερα%2$s.",
+        "OauthTokenSettingTitle": "Τεκμήριο Slack OAuth",
+        "PleaseFindYourReport": "Παρακάτω είναι η %1$sαναφορά σας για το %2$s",
+        "SlackAlertContent": "Συνέβη το έναυσμα για το %1$s για τον ιστοτόπο %2$s όπως στη μετρική %3$s στην αναφορά %4$s %5$s.",
+        "SlackChannel": "Slack Channel",
+        "SlackChannelIdInvalidErrorMessage": "Μη έγκυρο αναγνωριστικό Slack Channel, επιτρέπονται μόνο αλφαριθμητικές τιμές.",
+        "SlackChannelIdRequiredErrorMessage": "Το αναγνωριστικό του Slack Channel δεν μπορεί να είναι κενό.",
+        "SlackEnterYourSlackChannelIdHelpText": "Εισαγάγετε το αναγνωριστικό Slack Channel για το οποίο θα λαμβάνετε τις αναφορές. Για να βρείτε το αναγνωριστικό, πηγαίνετε στο Slack και ανοίξτε τις λεπτομέρειες καναλιού -&gt; Καρτέλα Σχετικά. %1$sΜάθετε περισσότερα%2$s"
+    }
+}
