@@ -2,6 +2,7 @@
 
 5.0.3 - 2025-11-10
 - Updated cover image for marketplace
+- Updated screenshot to not include extra plugins
 
 5.0.2 - 2025-10-27
 - Update Slack alert message to mention Matomo instance along with idSite
