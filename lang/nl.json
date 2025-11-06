@@ -1,1 +1,5 @@
-{}
+{
+    "Slack": {
+        "NoOauthTokenAdded": "Voeg uw Slack OAuth Token %1$shier%2$s toe."
+    }
+}
