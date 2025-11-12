@@ -1,1 +1,5 @@
-{}
+{
+    "Slack": {
+        "SlackAlertContent": "%1$s je aktiviran za web-stranicu %2$s kao mjerni podatak %3$s u izvještaju %4$s %5$s."
+    }
+}
