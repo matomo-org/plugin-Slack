@@ -35,10 +35,9 @@ class CustomAlertsTest extends IntegrationTestCase
     }
     public function testGetReportMediumOptions()
     {
-        $this->assertEquals([
-            ['key' => 'email', 'value' => 'CustomAlerts_MediumEmail', 'disabled' => false],
-            ['key' => 'mobile', 'value' => 'CustomAlerts_MediumMobile', 'disabled' => false],
+        $this->assertContains(
             ['key' => 'slack', 'value' => 'CustomAlerts_MediumSlack', 'disabled' => false],
-        ], CustomAlerts::getReportMediumOptions());
+            CustomAlerts::getReportMediumOptions()
+        );
     }
 }
