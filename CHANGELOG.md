@@ -1,7 +1,7 @@
 ## Changelog
 
 5.0.4 - 2026-01-05
-- Updated Api timeout to 5 seconds and changed log level to info and debug
+- Updated Api timeout to 5 seconds and changed log levels
 
 5.0.3 - 2025-11-10
 - Updated cover image for marketplace
