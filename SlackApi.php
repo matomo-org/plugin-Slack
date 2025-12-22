@@ -36,7 +36,7 @@ class SlackApi
     private const SLACK_COMPLETE_UPLOAD_EXTERNAL = 'https://slack.com/api/files.completeUploadExternal';
     private const SLACK_POST_MESSAGE_URL = 'https://slack.com/api/chat.postMessage';
 
-    private const SLACK_TIMEOUT = 5000;
+    private const SLACK_TIMEOUT = 5;
 
     public function __construct(
         #[\SensitiveParameter]
@@ -60,7 +60,7 @@ class SlackApi
             return $this->completeUploadExternal($channel, $subject);
         }
 
-        $this->logger->debug('Unable to send ' . $fileName . ' report to Slack');
+        $this->logger->info('Unable to send ' . $fileName . ' report to Slack');
 
         return false;
     }
@@ -87,7 +87,7 @@ class SlackApi
                 ['Content-Type' => 'multipart/form-data']
             );
         } catch (\Exception $e) {
-            $this->logger->debug('Slack error getUploadURLExternal: ' . $e->getMessage());
+            $this->logger->error('Slack error getUploadURLExternal: ' . $e->getMessage());
             return '';
         }
 
@@ -120,7 +120,7 @@ class SlackApi
                 true
             );
         } catch (\Exception $e) {
-            $this->logger->debug('Slack error sendFile: ' . $e->getMessage());
+            $this->logger->error('Slack error sendFile: ' . $e->getMessage());
             return false;
         }
 
@@ -151,7 +151,7 @@ class SlackApi
                 ['Content-Type' => 'multipart/form-data']
             );
         } catch (\Exception $e) {
-            $this->logger->debug('Slack error completeUploadExternal:' . $e->getMessage());
+            $this->logger->error('Slack error completeUploadExternal:' . $e->getMessage());
             return false;
         }
 
@@ -171,7 +171,7 @@ class SlackApi
     public function sendMessage(string $message, string $channel): bool
     {
         if (empty($message) || empty($channel)) {
-            $this->logger->debug('Empty message or channel for sending message');
+            $this->logger->info('Empty message or channel for sending message');
             return false;
         }
 
@@ -187,7 +187,7 @@ class SlackApi
                 ['Content-Type' => 'multipart/form-data']
             );
         } catch (\Exception $e) {
-            $this->logger->debug('Slack error sendMessage:' . $e->getMessage());
+            $this->logger->error('Slack error sendMessage:' . $e->getMessage());
             return false;
         }
 

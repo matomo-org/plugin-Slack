@@ -429,7 +429,7 @@ class Slack extends Plugin
             foreach ($groupedAlerts as $slackChannelId => $alert) {
                 if (!$slackApi->sendMessage(implode("\n", $alert['message']), $slackChannelId)) {
                     $logger = StaticContainer::get(LoggerInterface::class);
-                    $logger->debug('Slack alert failed for following alerts: ' . implode("\n", $alert['name']));
+                    $logger->info('Slack alert failed for following alerts: ' . implode("\n", $alert['name']));
                 }
             }
         }
