@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID Kanali Slack",
+        "NoOauthTokenAdded": "Ju lutemi, shtoni %1$shere%2$s Token-in tuaj OAuth për Slack .",
+        "OauthTokenRequiredErrorMessage": "Që të aktivizoni Slack-un, jepeni Token-in tuaj OAuth për Slack te Rregullime të përgjithshme &gt; Slack.",
+        "OauthTokenSettingDescription": "Jepni Token-in tuaj OAuth të prodhuar nga Slack-u juaj. %1$sMësoni më tepër%2$s.",
+        "OauthTokenSettingTitle": "Token OAuth për Slack",
+        "PleaseFindYourReport": "Ja raporti juaj %1$s për %2$s",
+        "SlackAlertContent": "%1$s është shkaktuar për sajtin %2$s si matje %3$s te raportimi %4$s %5$s.",
+        "SlackChannel": "Kanal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID e pavlefshme Kanali Slack, lejohen vetëm vlera alfanumerike.",
+        "SlackChannelIdRequiredErrorMessage": "ID Kanali Slack s’mund të jetë e zbrazët.",
+        "SlackEnterYourSlackChannelIdHelpText": "Jepni ID Kanali Slack të kanalit që do të marrë këto raportime. Që të gjeni ID-në, kaloni në Slack dhe hapni skedën hollësitë e kanalit &gt; Mbi. %1$sMësoni më tepër%2$s"
+    }
+}
