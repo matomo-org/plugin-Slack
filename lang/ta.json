@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ச்லாக் சேனல் அடையாளம்",
+        "NoOauthTokenAdded": "உங்கள் Slack OAuth கிள்ளாக்கை %1$shere%2$s சேர்க்கவும்.",
+        "OauthTokenRequiredErrorMessage": "ச்லாக்கை இயக்க, உங்கள் Slack OAuth கிள்ளாக்கை பொது அமைப்புகள் &gt; ச்லாக் என்பதில் வழங்கவும்.",
+        "OauthTokenSettingDescription": "உங்கள் ச்லாக்கிலிருந்து உருவாக்கப்பட்ட ச்லாக் OAuth கிள்ளாக்கை உள்ளிடவும். %1$sமேலும் அறிக%2$s.",
+        "OauthTokenSettingTitle": "ச்லாக் OAuth கிள்ளாக்கு",
+        "PleaseFindYourReport": "%2$sக்கான உங்கள் %1$s அறிக்கை இதோ",
+        "SlackAlertContent": "%4$s %5$s அறிக்கையில் %3$s மெட்ரிக்காக %2$s இணையதளத்திற்கு %1$s தூண்டப்பட்டது.",
+        "SlackChannel": "ச்லாக் சேனல்",
+        "SlackChannelIdInvalidErrorMessage": "தவறான ச்லாக் சேனல் அடையாளம், எண்ணெழுத்து மதிப்புகள் மட்டுமே அனுமதிக்கப்படும்.",
+        "SlackChannelIdRequiredErrorMessage": "ச்லாக் சேனல் அடையாளம் காலியாக இருக்கக்கூடாது.",
+        "SlackEnterYourSlackChannelIdHelpText": "இந்த அறிக்கைகளைப் பெறும் சேனலின் ச்லாக் சேனல் ஐடியை உள்ளிடவும். ஐடியைக் கண்டறிய, ச்லாக்கிற்குச் சென்று சேனல் விவரங்கள் &gt; அறிமுகம் தாவலைத் திறக்கவும். %1$sமேலும் அறிக%2$s"
+    }
+}
