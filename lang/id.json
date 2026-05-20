@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID Kanal Slack",
+        "NoOauthTokenAdded": "Harap tambahkan Token OAuth Slack Anda %1$sdi sini%2$s.",
+        "OauthTokenRequiredErrorMessage": "Untuk mengaktifkan Slack, berikan Token OAuth Slack Anda di Pengaturan Umum &gt; Slack.",
+        "OauthTokenSettingDescription": "Masukkan Token OAuth Slack Anda yang dibuat dari Slack Anda. %1$sPelajari lebih lanjut%2$s.",
+        "OauthTokenSettingTitle": "Token OAuth Slack",
+        "PleaseFindYourReport": "Berikut adalah laporan %1$s Anda untuk %2$s",
+        "SlackAlertContent": "%1$s telah dipicu untuk situs web %2$s sebagai metrik %3$s dalam laporan %4$s %5$s.",
+        "SlackChannel": "Kanal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID Kanal Slack tidak valid, hanya nilai alfanumerik yang diperbolehkan.",
+        "SlackChannelIdRequiredErrorMessage": "ID Kanal Slack tidak boleh kosong.",
+        "SlackEnterYourSlackChannelIdHelpText": "Masukkan ID Kanal Slack dari kanal yang akan menerima laporan ini. Untuk menemukan ID-nya, buka Slack dan buka detail kanal &gt; tab Tentang. %1$sPelajari lebih lanjut%2$s"
+    }
+}
