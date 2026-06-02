@@ -25,6 +25,20 @@
     expect(await page.screenshotSelector(selector)).to.matchImage(screenshotName);
   }
 
+  async function openReportTypeSelect() {
+    await page.evaluate(() => {
+      const reportTypeField = $('#addEditReport select[name="report_type"]').closest('.matomo-form-field');
+      reportTypeField.find('input.select-dropdown')[0].click();
+    });
+  }
+
+  async function selectSlackReportType() {
+    await page.evaluate(() => {
+      const reportTypeField = $('#addEditReport select[name="report_type"]').closest('.matomo-form-field');
+      reportTypeField.find('ul li:last').click();
+    });
+  }
+
   it('should load the schedule report as empty', async function () {
     const selector = '.page';
     await captureScreen('empty_report', async () => {
@@ -43,14 +57,14 @@
   it('should show send report via Slack as an option', async function () {
     const selector = '.page';
     await captureScreen('send_via_slack_new', async () => {
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
+      await openReportTypeSelect();
     }, selector);
   });
 
   it('should show slack channel ID input as disabled as Oauth token not configured', async function () {
     const selector = '.page';
     await captureScreen('slack_report_disabled', async () => {
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await selectSlackReportType();
     }, selector);
   });
 
@@ -70,8 +84,8 @@
     await captureScreen('slack_report_enabled', async () => {
       await page.evaluate(() => $('#add-report').click());
       await page.waitForNetworkIdle();
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await openReportTypeSelect();
+      await selectSlackReportType();
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) input')[0].click());
       await page.evaluate(() => $('#addEditReport .matomo-form-field.slack:eq(0) li:eq(1)').click());
     }, selector);
@@ -105,8 +119,8 @@
       await page.evaluate(() => $('#add-report').click());
       await page.waitForNetworkIdle();
       await page.type('input#report_description', 'Slack Report PDF');
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await openReportTypeSelect();
+      await selectSlackReportType();
     }, selector);
   });
 
