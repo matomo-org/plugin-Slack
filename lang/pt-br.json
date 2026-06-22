@@ -1,1 +1,15 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID do canal do Slack",
+        "NoOauthTokenAdded": "Por favor, adicione seu token OAuth do Slack %1$shere%2$s.",
+        "OauthTokenRequiredErrorMessage": "Para ativar o Slack, forneça seu token OAuth do Slack em Configurações gerais &gt; Slack.",
+        "OauthTokenSettingDescription": "Insira seu token OAuth do Slack gerado no Slack. %1$sSaiba mais%2$s.",
+        "OauthTokenSettingTitle": "Token OAuth do Slack",
+        "PleaseFindYourReport": "Aqui está o seu relatório %1$s para %2$s",
+        "SlackAlertContent": "%1$s foi acionado para o site %2$s como a métrica %3$s no relatório %4$s %5$s.",
+        "SlackChannel": "Canal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID do canal do Slack inválido; somente valores alfanuméricos são permitidos.",
+        "SlackChannelIdRequiredErrorMessage": "O ID do canal do Slack não pode estar vazio.",
+        "SlackEnterYourSlackChannelIdHelpText": "Insira o ID do canal do Slack que receberá esses relatórios. Para encontrar o ID, acesse o Slack e abra os detalhes do canal &gt; guia Sobre. %1$sSaiba mais%2$s"
+    }
+}
