@@ -58,12 +58,14 @@ class EncryptedSlackOauthTokenSetting extends SystemSetting
         }
 
         $encryptedValue = $this->encryption->encryptString($normalizedValue);
+        $this->storage->setValue($this->name, $encryptedValue);
         $backend = $this->storage->getBackend();
-        if ($backend instanceof PluginSettingsTable) {
+        if ($backend instanceof PluginSettingsTable && method_exists($backend, 'saveValue')) {
             $backend->saveValue($this->name, $encryptedValue);
+            return;
         }
 
-        $this->storage->setValue($this->name, $encryptedValue);
+        $this->storage->save();
     }
 
     private function hasUndecryptableValue(): bool
