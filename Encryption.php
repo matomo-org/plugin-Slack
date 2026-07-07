@@ -37,7 +37,7 @@ class Encryption
         string $value
     ): string {
         if (!extension_loaded('openssl')) {
-            throw new SecretConfigurationException(Piwik::translate('General_ExceptionInvalidState', 'OpenSSL is required to encrypt Slack credentials.'));
+            throw new SecretConfigurationException(Piwik::translate('Slack_EncryptionOpenSslRequired'));
         }
 
         $key = $this->getEncryptionKey(true);
@@ -46,7 +46,7 @@ class Encryption
         $ciphertext = openssl_encrypt($value, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv);
 
         if (!is_string($ciphertext)) {
-            throw new SecretConfigurationException(Piwik::translate('General_ExceptionInvalidState', 'Failed to encrypt the Slack credential.'));
+            throw new SecretConfigurationException(Piwik::translate('Slack_EncryptionFailed'));
         }
 
         $payload = [
@@ -67,7 +67,7 @@ class Encryption
         }
 
         if (!extension_loaded('openssl')) {
-            throw new SecretConfigurationException(Piwik::translate('General_ExceptionInvalidState', 'OpenSSL is required to decrypt Slack credentials.'));
+            throw new SecretConfigurationException(Piwik::translate('Slack_EncryptionOpenSslRequired'));
         }
 
         $key = $this->getEncryptionKey(false);
@@ -114,6 +114,6 @@ class Encryption
 
     private function getInvalidKeyMessage(): string
     {
-        return 'Slack encryption key is missing or invalid.';
+        return Piwik::translate('Slack_EncryptionKeyInvalid');
     }
 }
