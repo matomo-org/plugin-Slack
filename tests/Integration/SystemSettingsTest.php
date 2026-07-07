@@ -96,6 +96,12 @@ class SystemSettingsTest extends IntegrationTestCase
     {
         $backend = (new Factory())->getPluginStorage('Slack', '')->getBackend();
 
-        return (string) $backend->loadValue('slackOauthToken', '');
+        if (method_exists($backend, 'loadValue')) {
+            return (string) $backend->loadValue('slackOauthToken', '');
+        }
+
+        $values = $backend->load();
+
+        return isset($values['slackOauthToken']) ? (string) $values['slackOauthToken'] : '';
     }
 }
