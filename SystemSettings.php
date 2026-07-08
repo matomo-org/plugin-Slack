@@ -12,6 +12,7 @@ namespace Piwik\Plugins\Slack;
 use Piwik\Piwik;
 use Piwik\Settings\Setting;
 use Piwik\Settings\FieldConfig;
+use Piwik\Plugins\Slack\Settings\EncryptedSlackOauthTokenSetting;
 use Piwik\Url;
 
 class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
@@ -27,7 +28,8 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 
     private function createSlackOauthTokenSetting()
     {
-        return $this->makeSetting('slackOauthToken', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+        $setting = new EncryptedSlackOauthTokenSetting('slackOauthToken', $default = '', FieldConfig::TYPE_STRING, $this->pluginName);
+        $setting->setConfigureCallback(function (FieldConfig $field) {
             $field->title = Piwik::translate('Slack_OauthTokenSettingTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
             $link = Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/reports/how-to-get-the-slack-oauth-token-for-matomo-integration/', null, null, 'App.SystemSettings.Slack') . '#step-1-get-a-slack-oauth-token';
@@ -36,5 +38,8 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 return trim($value);
             };
         });
+        $this->addSetting($setting);
+
+        return $setting;
     }
 }

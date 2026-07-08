@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.0 - 2026-07-13
+- Added code to encrypt sensitive values in database to improve security
+
 5.0.4 - 2026-01-05
 - Updated Api timeout to 5 seconds and changed log levels
 

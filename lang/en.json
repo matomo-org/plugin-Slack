@@ -1,6 +1,9 @@
 {
   "Slack": {
     "ChannelId": "Slack Channel ID",
+    "EncryptionFailed": "Failed to encrypt the Slack credential.",
+    "EncryptionKeyInvalid": "Slack encryption key is missing or invalid.",
+    "EncryptionOpenSslRequired": "OpenSSL is required to encrypt or decrypt Slack credentials.",
     "NoOauthTokenAdded": "Please add your Slack OAuth Token %1$shere%2$s.",
     "OauthTokenRequiredErrorMessage": "To enable Slack, provide your Slack OAuth Token in General settings > Slack.",
     "OauthTokenSettingTitle": "Slack OAuth Token",

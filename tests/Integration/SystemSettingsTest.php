@@ -9,9 +9,12 @@
 
 namespace Piwik\Plugins\Slack\tests;
 
+use Piwik\Config;
+use Piwik\Plugins\Slack\Configuration;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 use Piwik\Plugins\Slack\SystemSettings;
 use Piwik\Tests\Framework\Fixture;
+use Piwik\Settings\Storage\Factory;
 
 /**
  * @group Slack
@@ -22,10 +25,13 @@ use Piwik\Tests\Framework\Fixture;
 class SystemSettingsTest extends IntegrationTestCase
 {
     private $settings;
+    private $backupSlackConfig = [];
 
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->backupSlackConfig = Config::getInstance()->Slack ?: [];
 
         Fixture::loadAllTranslations();
 
@@ -33,6 +39,14 @@ class SystemSettingsTest extends IntegrationTestCase
         Fixture::createWebsite('2014-01-01 00:01:02');
 
         $this->settings = new SystemSettings();
+    }
+
+    public function tearDown(): void
+    {
+        Config::getInstance()->Slack = $this->backupSlackConfig;
+        Config::getInstance()->forceSave();
+
+        parent::tearDown();
     }
 
     public function testSlackOauthTokenDefaultValue()
@@ -44,11 +58,50 @@ class SystemSettingsTest extends IntegrationTestCase
     {
         $this->settings->slackOauthToken->setValue('token');
         $this->assertEquals('token', $this->settings->slackOauthToken->getValue());
+        $this->assertStoredValueIsEncrypted('token');
     }
 
     public function testSlackOauthTokenValueChangeSuccess2()
     {
         $this->settings->slackOauthToken->setValue('token ');
         $this->assertEquals('token', $this->settings->slackOauthToken->getValue());
+        $this->assertStoredValueIsEncrypted('token');
+    }
+
+    public function testShouldNotOverwriteEncryptedValueWhenKeyIsInvalidAndBlankValueIsSaved()
+    {
+        $this->settings->slackOauthToken->setValue('token');
+        $storedValue = $this->getStoredTokenValue();
+
+        Config::getInstance()->Slack[Configuration::KEY_ENCRYPTION_KEY] = 'invalid-key';
+
+        $this->settings = new SystemSettings();
+
+        $this->assertSame('', $this->settings->slackOauthToken->getValue());
+
+        $this->settings->slackOauthToken->setValue('');
+
+        $this->assertSame($storedValue, $this->getStoredTokenValue());
+    }
+
+    private function assertStoredValueIsEncrypted(string $expectedPlaintext): void
+    {
+        $storedValue = $this->getStoredTokenValue();
+
+        $this->assertNotSame($expectedPlaintext, $storedValue);
+        $this->assertStringStartsWith('enc:v1:', $storedValue);
+    }
+
+    private function getStoredTokenValue(): string
+    {
+        $backend = (new Factory())->getPluginStorage('Slack', '')->getBackend();
+
+        if (method_exists($backend, 'loadValue')) {
+            return (string) $backend->loadValue('slackOauthToken', '');
+        }
+
+        $values = $backend->load();
+
+        return isset($values['slackOauthToken']) ? (string) $values['slackOauthToken'] : '';
     }
 }
