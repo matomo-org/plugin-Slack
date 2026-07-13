@@ -1,6 +1,9 @@
 {
     "Slack": {
         "ChannelId": "Aitheantas Cainéal Slack",
+        "EncryptionFailed": "Theip ar chriptiú dintiúir Slack.",
+        "EncryptionKeyInvalid": "Tá eochair chriptithe Slack ar iarraidh nó neamhbhailí.",
+        "EncryptionOpenSslRequired": "Tá OpenSSL ag teastáil chun dintiúir Slack a chriptiú nó a dhíchriptiú.",
         "NoOauthTokenAdded": "Cuir do chomhartha Slack OAuth %1$sanseo%2$s leis, le do thoil.",
         "OauthTokenRequiredErrorMessage": "Chun Slack a chumasú, cuir do Chomhartha OAuth Slack ar fáil i socruithe Ginearálta &gt; Slack.",
         "OauthTokenSettingDescription": "Cuir isteach do Chomhartha OAuth Slack a gineadh ó do Slack. %1$sFoghlaim tuilleadh%2$s.",

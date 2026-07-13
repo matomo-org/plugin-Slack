@@ -1,6 +1,9 @@
 {
     "Slack": {
         "ChannelId": "ID Kanali Slack",
+        "EncryptionFailed": "S’u arrit të fshehtëzohen kredenciale Slack.",
+        "EncryptionKeyInvalid": "Kyçi për fshehtëzim Slack mungon, ose është i pavlefshëm.",
+        "EncryptionOpenSslRequired": "Që të fshehtëzohen apo shfshehtëzohen kredenciale Slack, OpenSSL-ja është e domosdoshme.",
         "NoOauthTokenAdded": "Ju lutemi, shtoni %1$shere%2$s Token-in tuaj OAuth për Slack .",
         "OauthTokenRequiredErrorMessage": "Që të aktivizoni Slack-un, jepeni Token-in tuaj OAuth për Slack te Rregullime të përgjithshme &gt; Slack.",
         "OauthTokenSettingDescription": "Jepni Token-in tuaj OAuth të prodhuar nga Slack-u juaj. %1$sMësoni më tepër%2$s.",
