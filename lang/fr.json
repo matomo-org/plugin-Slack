@@ -1,6 +1,9 @@
 {
     "Slack": {
         "ChannelId": "ID du canal Slack",
+        "EncryptionFailed": "Échec du chiffrement de l'identifiant Slack.",
+        "EncryptionKeyInvalid": "La clé de chiffrement Slack est manquante ou invalide.",
+        "EncryptionOpenSslRequired": "OpenSSL est requis pour chiffrer ou déchiffrer les identifiants Slack.",
         "NoOauthTokenAdded": "Veuillez ajouter votre jeton OAuth Slack %1$sici%2$s.",
         "OauthTokenRequiredErrorMessage": "Pour activer Slack, fournissez votre jeton OAuth Slack dans Paramètres généraux &gt; Slack.",
         "OauthTokenSettingDescription": "Saisissez votre jeton OAuth Slack généré depuis votre Slack. %1$sEn savoir plus%2$s.",
