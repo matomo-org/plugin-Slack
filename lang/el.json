@@ -1,6 +1,9 @@
 {
     "Slack": {
         "ChannelId": "Αναγνωριστικό Slack Channel",
+        "EncryptionFailed": "Αδύνατη η κρυπτογράφηση των διαπιστευτηρίων Slack.",
+        "EncryptionKeyInvalid": "Το κλειδί κρυπτογράφησης Slack λείπει ή είναι μη έγκυρο.",
+        "EncryptionOpenSslRequired": "Απαιτείται το OpenSSL για την κρυπτογράφηση ή αποκρυπτογράφηση των διαπιστευτηρίων Slack.",
         "NoOauthTokenAdded": "Παρακαλούμε εισαγάγετε το τεκμήριο Slack OAtuh %1$sεδώ%2$s.",
         "OauthTokenRequiredErrorMessage": "Για να ενεργοποιηθεί το Slack, δώστε το τεκμήριό σας για το Slack OAuth στις Γενικές Ρυθμίσεις &gt; Slack.",
         "OauthTokenSettingDescription": "Εισαγάγετε το τεκμήριο Slack OAtuh που σας δόθηκε από το Slack. %1$sΜάθετε περισσότερα%2$s.",
