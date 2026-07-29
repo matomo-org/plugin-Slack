@@ -1,6 +1,9 @@
 {
     "Slack": {
         "ChannelId": "Slack kanalı kimliği",
+        "EncryptionFailed": "Slack kimlik doğrulama bilgileri şifrelenemedi.",
+        "EncryptionKeyInvalid": "Slack şifreleme anahtarı eksik veya geçersiz.",
+        "EncryptionOpenSslRequired": "Slack kimlik doğrulama bilgilerini şifrelemek veya şifresini çözmek için OpenSSL gereklidir.",
         "NoOauthTokenAdded": "Lütfen Slack OAuth kodunuzu %1$sburaya%2$s ekleyin.",
         "OauthTokenRequiredErrorMessage": "Slack kullanmak için, General ayarlar &gt; Slack bölümünden Slack OAuth kodunuzu yazın.",
         "OauthTokenSettingDescription": "Slack tarafından oluşturulan Slack Oauth kodunuzu yazın. %1$sAyrıntılı bilgi alın%2$s.",
