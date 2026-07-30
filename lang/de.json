@@ -1,6 +1,9 @@
 {
     "Slack": {
         "ChannelId": "Slack-Channel-ID",
+        "EncryptionFailed": "Die Verschlüsselung der Slack-Anmeldedaten ist fehlgeschlagen.",
+        "EncryptionKeyInvalid": "Der Slack-Verschlüsselungsschlüssel fehlt oder ist ungültig.",
+        "EncryptionOpenSslRequired": "Zum Ver- oder Entschlüsseln von Slack-Anmeldedaten ist OpenSSL erforderlich.",
         "NoOauthTokenAdded": "Bitte fügen Sie %1$shier%2$s Ihr Slack OAuth-Token hinzu.",
         "OauthTokenRequiredErrorMessage": "Um Slack zu aktivieren, geben Sie Ihr Slack OAuth-Token unter Allgemeine Einstellungen &gt; Slack ein.",
         "OauthTokenSettingDescription": "Geben Sie Ihren von Slack generierten OAuth-Token ein. %1$sErfahren Sie mehr%2$s.",
