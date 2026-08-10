@@ -60,7 +60,7 @@ class EncryptedSlackOauthTokenSetting extends SystemSetting
         $encryptedValue = $this->encryption->encryptString($normalizedValue);
         $this->storage->setValue($this->name, $encryptedValue);
         $backend = $this->storage->getBackend();
-        if ($backend instanceof PluginSettingsTable && method_exists($backend, 'saveValue')) {
+        if ($backend instanceof PluginSettingsTable) {
             $backend->saveValue($this->name, $encryptedValue);
             return;
         }
