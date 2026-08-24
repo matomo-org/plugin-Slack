@@ -1,1 +1,18 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Slack 頻道 ID",
+        "EncryptionFailed": "無法加密 Slack 憑證。",
+        "EncryptionKeyInvalid": "Slack 加密金鑰遺失或無效。",
+        "EncryptionOpenSslRequired": "加密或解密 Slack 憑證需要 OpenSSL。",
+        "NoOauthTokenAdded": "請%1$s在此%2$s加入你的 Slack OAuth 權杖。",
+        "OauthTokenRequiredErrorMessage": "若要啟用 Slack，請在「一般設定 &gt; Slack」中提供你的 Slack OAuth 權杖。",
+        "OauthTokenSettingDescription": "請輸入你在 Slack 中產生的 Slack OAuth 權杖。%1$s了解更多%2$s。",
+        "OauthTokenSettingTitle": "Slack OAuth 權杖",
+        "PleaseFindYourReport": "以下是你 %2$s 的 %1$s 報表",
+        "SlackAlertContent": "%1$s 已針對網站 %2$s 觸發，因為報表 %4$s 中的指標 %3$s %5$s。",
+        "SlackChannel": "Slack 頻道",
+        "SlackChannelIdInvalidErrorMessage": "Slack 頻道 ID 無效，只允許使用英數字元。",
+        "SlackChannelIdRequiredErrorMessage": "Slack 頻道 ID 不能為空。",
+        "SlackEnterYourSlackChannelIdHelpText": "請輸入要接收這些報表的 Slack 頻道 ID。若要找出 ID，請前往 Slack 並開啟該頻道的詳細資料 &gt;「關於」分頁。%1$s了解更多%2$s"
+    }
+}
