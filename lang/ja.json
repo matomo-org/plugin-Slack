@@ -1,1 +1,18 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "SlackのチャンネルID",
+        "EncryptionFailed": "Slackの資格情報の暗号化に失敗しました。",
+        "EncryptionKeyInvalid": "Slackの暗号化キーが存在しないか無効です。",
+        "EncryptionOpenSslRequired": "Slackの認証情報を暗号化または復号化するには、OpenSSLが必要です。",
+        "NoOauthTokenAdded": "SlackのOAuthトークンを%1$sここ%2$sに追加してください。",
+        "OauthTokenRequiredErrorMessage": "Slackを有効にするには、一般設定 &gt; SlackでSlackのOAuthトークンを入力してください。",
+        "OauthTokenSettingDescription": "Slackから生成したOAuthトークンを入力してください。%1$s詳しくはこちら%2$s。",
+        "OauthTokenSettingTitle": "SlackのOAuthトークン",
+        "PleaseFindYourReport": "こちらが%2$sの%1$s報告書です",
+        "SlackAlertContent": "%1$s がウェブサイト %2$s で、レポート %4$s のメトリック %3$s として %5$s されました。",
+        "SlackChannel": "スラックチャンネル",
+        "SlackChannelIdInvalidErrorMessage": "無効なSlackチャンネルIDです。英数字のみ使用できます。",
+        "SlackChannelIdRequiredErrorMessage": "SlackのチャンネルIDは空にできません。",
+        "SlackEnterYourSlackChannelIdHelpText": "これらのレポートを受信するチャンネルのSlackチャンネルIDを入力してください。IDを確認するには、Slackにアクセスし、チャンネルの詳細 &gt; 「概要」タブを開いてください。%1$s詳細はこちら%2$s"
+    }
+}

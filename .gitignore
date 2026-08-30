@@ -1,3 +1,5 @@
 /tests/System/processed/
 /tests/Integration/Importers/processed/
 /tests/UI/processed-ui-screenshots/
+/vue/dist/*.umd.js
+/vue/dist/*.map

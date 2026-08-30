@@ -1,5 +1,8 @@
 ## Changelog
 
+6.0.0 - 2026-08-10
+- Compatibility with Matomo 6
+
 5.1.0 - 2026-07-13
 - Added code to encrypt sensitive values in database to improve security
 

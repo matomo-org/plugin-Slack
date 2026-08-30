@@ -1,1 +1,18 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID kanálu ve Slacku",
+        "EncryptionFailed": "Přihlašovací údaj pro Slack se nepodařilo zašifrovat.",
+        "EncryptionKeyInvalid": "Šifrovací klíč pro Slack chybí nebo není platný.",
+        "EncryptionOpenSslRequired": "K šifrování nebo dešifrování přihlašovacích údajů pro Slack je vyžadováno OpenSSL.",
+        "NoOauthTokenAdded": "Přidejte token OAuth pro Slack %1$szde%2$s.",
+        "OauthTokenRequiredErrorMessage": "Chcete-li povolit Slack, zadejte token OAuth pro Slack v části Obecná nastavení &gt; Slack.",
+        "OauthTokenSettingDescription": "Zadejte token OAuth vygenerovaný ve Slacku. %1$sDalší informace%2$s.",
+        "OauthTokenSettingTitle": "Token OAuth pro Slack",
+        "PleaseFindYourReport": "%1$s vám zasíláme hlášení pro %2$s",
+        "SlackAlertContent": "Pro web %2$s bylo spuštěno upozornění %1$s, protože metrika %3$s v přehledu %4$s %5$s.",
+        "SlackChannel": "Kanál ve Slacku",
+        "SlackChannelIdInvalidErrorMessage": "Neplatné ID kanálu ve Slacku; povoleny jsou pouze alfanumerické znaky.",
+        "SlackChannelIdRequiredErrorMessage": "ID kanálu ve Slacku nesmí být prázdné.",
+        "SlackEnterYourSlackChannelIdHelpText": "Zadejte ID kanálu ve Slacku, který bude přijímat tato hlášení. ID najdete tak, že ve Slacku otevřete podrobnosti kanálu &gt; kartu About. %1$sDalší informace%2$s"
+    }
+}
