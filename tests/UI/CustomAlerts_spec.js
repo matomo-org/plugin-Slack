@@ -58,6 +58,9 @@
     const selector = '.page';
     await captureScreen('slack_report_disabled', async () => {
       await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("Slack")').click());
+      // picking the option leaves the select focused, and whether its focus ring is still
+      // painted by the time the screenshot is taken varies from run to run
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
     }, selector);
   });
 
