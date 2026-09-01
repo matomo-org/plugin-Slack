@@ -37,9 +37,9 @@
       const reportTypeField = $('#addEditReport select[name="report_type"]').closest('.matomo-form-field');
       reportTypeField.find('ul li:last').click();
     });
-    // picking an option leaves the select focused, and the restyled control paints a
-    // :focus-within border the capture catches only sometimes
-    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    // the click leaves the pointer over the select, and the restyled control paints a
+    // :hover border; move it away so the capture is not taken mid-hover
+    await page.mouse.move(0, 0);
   }
 
   it('should load the schedule report as empty', async function () {
