@@ -18,6 +18,7 @@ jobs:
     uses: matomo-org/plugin-ci-workflows/.github/workflows/plugin-ci.yml@main
     with:
       plugin-name: Slack
+      verify-hook: true
       # This plugin's phpstan.yml is a bespoke job rather than a call to the shared
       # workflow, so it keeps running on its own; converting it is separate work.
       skip-phpstan: true
