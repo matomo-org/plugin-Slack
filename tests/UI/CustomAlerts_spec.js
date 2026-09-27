@@ -41,6 +41,9 @@
     const selector = '.page';
     await captureScreen('new_custom_alert', async () => {
       await page.evaluate(() => $('.icon-add').click());
+      // the click triggers a page navigation; wait for the alert form, as .page already
+      // exists on the list page and can be captured before the form has rendered
+      await page.waitForSelector('#alertName');
     }, selector);
   });
 
