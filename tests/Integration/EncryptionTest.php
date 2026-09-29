@@ -69,4 +69,26 @@ class EncryptionTest extends TestCase
         $encrypted = $encryption->encryptString('very-secret-value');
         $encryption->decryptString(substr($encrypted, 0, -2) . 'ab');
     }
+
+    public function test_withKey_shouldEncryptAndDecryptRoundTrip()
+    {
+        $encrypted = Encryption::withKey('key-a')->encryptString('very-secret-value');
+
+        $this->assertSame('very-secret-value', Encryption::withKey('key-a')->decryptString($encrypted));
+    }
+
+    public function test_withKey_shouldFailToDecryptWithAnotherKey()
+    {
+        $encrypted = Encryption::withKey('key-a')->encryptString('very-secret-value');
+
+        $this->expectException(SecretConfigurationException::class);
+        Encryption::withKey('key-b')->decryptString($encrypted);
+    }
+
+    public function test_withKey_shouldRejectAnEmptyKey()
+    {
+        $this->expectException(SecretConfigurationException::class);
+
+        Encryption::withKey('')->encryptString('very-secret-value');
+    }
 }

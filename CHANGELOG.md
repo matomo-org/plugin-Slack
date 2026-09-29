@@ -1,5 +1,8 @@
 ## Changelog
 
+6.0.1 - 2026-10-05
+- Support rotating the encryption key of the stored Slack OAuth token with the `core:rotate-encryption-keys` console command (available from the Matomo release that introduces it)
+
 6.0.0 - 2026-08-10
 - Compatibility with Matomo 6
 
