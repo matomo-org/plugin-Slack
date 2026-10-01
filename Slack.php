@@ -59,12 +59,31 @@ class Slack extends Plugin
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
             'CustomAlerts.validateReportParameters' => 'validateCustomAlertReportParameters',
             'CustomAlerts.sendNewAlerts' => 'sendNewAlerts',
+            'CoreAdminHome.getEncryptionKeyRotationTargets' => 'getEncryptionKeyRotationTargets',
         ];
     }
 
     public function requiresInternetConnection()
     {
         return true;
+    }
+
+    public function getEncryptionKeyRotationTargets(array &$targets): void
+    {
+        $targets['Slack'] = [
+            'configSection' => Configuration::SECTION_NAME,
+            'configKey' => Configuration::KEY_ENCRYPTION_KEY,
+            'pluginSettings' => ['slackOauthToken'],
+            'isEncrypted' => function ($value): bool {
+                return (new Encryption())->isEncrypted($value);
+            },
+            'decrypt' => function (string $value, #[\SensitiveParameter] string $key): string {
+                return Encryption::withKey($key)->decryptString($value);
+            },
+            'encrypt' => function (#[\SensitiveParameter] string $value, #[\SensitiveParameter] string $key): string {
+                return Encryption::withKey($key)->encryptString($value);
+            },
+        ];
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)
