@@ -1,1 +1,18 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Slack-kanal-ID",
+        "EncryptionFailed": "Klarte ikkje å kryptere påloggingsinformasjonen for Slack.",
+        "EncryptionKeyInvalid": "Krypteringsnøkkelen for Slack manglar eller er ugyldig.",
+        "EncryptionOpenSslRequired": "OpenSSL trengst for å kryptere eller dekryptere påloggingsinformasjonen for Slack.",
+        "NoOauthTokenAdded": "Legg til Slack OAuth-tokenet ditt %1$sher%2$s.",
+        "OauthTokenRequiredErrorMessage": "For å skru på Slack oppgir du Slack OAuth-tokenet ditt i Generelle innstillingar &gt; Slack.",
+        "OauthTokenSettingDescription": "Skriv inn Slack OAuth-tokenet du har laga i Slack. %1$sLær meir%2$s.",
+        "OauthTokenSettingTitle": "Slack OAuth-token",
+        "PleaseFindYourReport": "Her er %1$s-rapporten din for %2$s",
+        "SlackAlertContent": "%1$s er utløyst for nettstaden %2$s fordi måltalet %3$s i rapporten %4$s %5$s.",
+        "SlackChannel": "Slack-kanal",
+        "SlackChannelIdInvalidErrorMessage": "Ugyldig Slack-kanal-ID, berre alfanumeriske verdiar er tillatne.",
+        "SlackChannelIdRequiredErrorMessage": "Slack-kanal-ID-en kan ikkje vere tom.",
+        "SlackEnterYourSlackChannelIdHelpText": "Skriv inn Slack-kanal-ID-en til kanalen som skal få desse rapportane. For å finne ID-en går du til Slack og opnar kanaldetaljane &gt; fana About. %1$sLær meir%2$s"
+    }
+}
