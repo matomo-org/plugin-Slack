@@ -4,6 +4,17 @@ parameters:
     tmpDir: /tmp/phpstan/Slack/main
     paths:
         - .
+    ignoreErrors:
+        # the version guard is constant-folded against core's version: always true on 6.1.0 and later,
+        # always false on the minimum-required Matomo analysed by CI, so each leg reports only one of them
+        - identifier: ternary.alwaysTrue
+          path: Slack.php
+          count: 1
+          reportUnmatched: false
+        - identifier: ternary.alwaysFalse
+          path: Slack.php
+          count: 1
+          reportUnmatched: false
     excludePaths:
         - tests/*
     bootstrapFiles:

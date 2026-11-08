@@ -9,6 +9,7 @@
 
 namespace Piwik\Plugins\Slack;
 
+use Piwik\Http\BadRequestException;
 use Piwik\Log\LoggerInterface;
 use Piwik\Option;
 use Piwik\Period;
@@ -16,6 +17,7 @@ use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugins\ScheduledReports\ScheduledReports;
 use Piwik\SettingsPiwik;
+use Piwik\Version;
 use Piwik\View;
 use Piwik\Container\StaticContainer;
 use Piwik\ReportRenderer;
@@ -113,11 +115,12 @@ class Slack extends Plugin
         $reportFormat = $parameters[ScheduledReports::DISPLAY_FORMAT_PARAMETER];
         $availableDisplayFormats = array_keys(ScheduledReports::getDisplayFormats());
         if (!in_array($reportFormat, $availableDisplayFormats)) {
-            throw new \Exception(
+            throw new BadRequestException(
                 Piwik::translate(
                     'General_ExceptionInvalidAggregateReportsFormat',
                     array($reportFormat, implode(', ', $availableDisplayFormats))
-                )
+                ),
+                self::getClientErrorCode()
             );
         }
 
@@ -132,12 +135,12 @@ class Slack extends Plugin
         if (empty($settings->slackOauthToken->getValue())) {
             throw new \Exception(Piwik::translate('Slack_OauthTokenRequiredErrorMessage'));
         } elseif (empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
-            throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
+            throw new BadRequestException(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'), self::getClientErrorCode());
         }
         $slackChannels = explode(',', (string) $parameters[self::SLACK_CHANNEL_ID_PARAMETER]);
         foreach ($slackChannels as $slackChannel) {
             if (!ctype_alnum($slackChannel)) {
-                throw new \Exception(Piwik::translate('Slack_SlackChannelIdInvalidErrorMessage'));
+                throw new BadRequestException(Piwik::translate('Slack_SlackChannelIdInvalidErrorMessage'), self::getClientErrorCode());
             }
         }
     }
@@ -417,9 +420,9 @@ class Slack extends Plugin
             if (empty($settings->slackOauthToken->getValue())) {
                 throw new \Exception(Piwik::translate('Slack_OauthTokenRequiredErrorMessage'));
             } elseif (empty($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
-                throw new \Exception(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'));
+                throw new BadRequestException(Piwik::translate('Slack_SlackChannelIdRequiredErrorMessage'), self::getClientErrorCode());
             } elseif (!ctype_alnum($parameters[self::SLACK_CHANNEL_ID_PARAMETER])) {
-                throw new \Exception(Piwik::translate('Slack_SlackChannelIdInvalidErrorMessage'));
+                throw new BadRequestException(Piwik::translate('Slack_SlackChannelIdInvalidErrorMessage'), self::getClientErrorCode());
             }
         }
     }
@@ -544,5 +547,15 @@ class Slack extends Plugin
     private static function valueIsTrue($value)
     {
         return $value == 'true' || $value == 1 || $value == '1' || $value === true;
+    }
+
+    /**
+     * Before Matomo 6.1.0 the scheduled report form shows only a generic error for a 4xx API response,
+     * hiding why the report was refused, so those versions keep the HTTP 200 error body (code 0).
+     * Remove once the plugin requires Matomo 6.1.0.
+     */
+    private static function getClientErrorCode(): int
+    {
+        return version_compare(Version::VERSION, '6.1.0-alpha', '>=') ? 400 : 0;
     }
 }
