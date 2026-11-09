@@ -18,6 +18,7 @@ use Piwik\Plugins\Slack\SystemSettings;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\Mock\FakeAccess;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
+use Piwik\Version;
 
 /**
  * @group Slack
@@ -122,11 +123,20 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
     }
 
+    public function testValidateReportParametersInvalidDisplayFormatAnswers400()
+    {
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => 'invalidFormat'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
+    }
+
     public function testValidateReportParametersSlackTokenNotSetShouldThrowSlackChannelIdEmptyException()
     {
         $settings = StaticContainer::get(SystemSettings::class);
         $settings->slackOauthToken->setValue('test123');
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('Slack_SlackChannelIdRequiredErrorMessage');
         $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
@@ -136,7 +146,8 @@ class ScheduledReportsTest extends IntegrationTestCase
     {
         $settings = StaticContainer::get(SystemSettings::class);
         $settings->slackOauthToken->setValue('test123');
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('Slack_SlackChannelIdRequiredErrorMessage');
         $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => ''];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
@@ -146,7 +157,8 @@ class ScheduledReportsTest extends IntegrationTestCase
     {
         $settings = StaticContainer::get(SystemSettings::class);
         $settings->slackOauthToken->setValue('test123');
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('Slack_SlackChannelIdInvalidErrorMessage');
         $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123@11'];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
@@ -156,7 +168,8 @@ class ScheduledReportsTest extends IntegrationTestCase
     {
         $settings = StaticContainer::get(SystemSettings::class);
         $settings->slackOauthToken->setValue('test123');
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('Slack_SlackChannelIdInvalidErrorMessage');
         $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123,Demo@11'];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'slack']);
@@ -221,5 +234,10 @@ class ScheduledReportsTest extends IntegrationTestCase
         return array(
             'Piwik\Access' => new FakeAccess()
         );
+    }
+
+    private function getExpectedClientErrorCode(): int
+    {
+        return version_compare(Version::VERSION, '6.1.0-alpha', '>=') ? 400 : 0;
     }
 }
