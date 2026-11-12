@@ -97,7 +97,7 @@ class ScheduledReportsTest extends IntegrationTestCase
     {
         $slack = StaticContainer::get(Slack::class);
         Fixture::loadAllTranslations();
-        $alert = ['name' => 'A & B <x>', 'siteName' => 'Site <one> & two', 'metric_condition' => 'less_than', 'metric_matched' => '5', 'value_new' => '1', 'value_old' => '2', 'idsite' => 1];
+        $alert = ['name' => 'A & B <x>', 'siteName' => 'Site &lt;one&gt; &amp; two', 'metric_condition' => 'less_than', 'metric_matched' => '5', 'value_new' => '1', 'value_old' => '2', 'idsite' => 1];
         $this->assertSame(
             'A &amp; B &lt;x&gt; has been triggered for website <http://localhost/tests/PHPUnit/proxy/index.php?idSite=1|Site &lt;one&gt; &amp; two> as the metric Visits &lt;total&gt; in report Visits &amp; Summary is 1 which is less than 5.',
             $slack->getAlertMessage($alert, 'Visits <total>', 'Visits & Summary')
