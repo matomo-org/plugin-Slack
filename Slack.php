@@ -496,9 +496,20 @@ class Slack extends Plugin
             $settingURL .= 'index.php';
         }
         $settingURL .= '?idSite=' . $alert['idsite'];
-        $siteName = $alert['siteName'];
+        $siteName = $this->escapeSlackText($alert['siteName']);
         $siteWithLink = "<$settingURL|$siteName>";
-        return Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $siteWithLink, $metric, $reportName, $this->transformAlertCondition($alert)]);
+        return Piwik::translate('Slack_SlackAlertContent', [
+            $this->escapeSlackText($alert['name']),
+            $siteWithLink,
+            $this->escapeSlackText($metric),
+            $this->escapeSlackText($reportName),
+            $this->escapeSlackText($this->transformAlertCondition($alert)),
+        ]);
+    }
+
+    private function escapeSlackText(string $text): string
+    {
+        return str_replace(['&', '<', '>'], ['&amp;', '&lt;', '&gt;'], $text);
     }
 
     /**
