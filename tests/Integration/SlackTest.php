@@ -104,6 +104,40 @@ class ScheduledReportsTest extends IntegrationTestCase
         );
     }
 
+    public function testSendReportEscapesReportSubject()
+    {
+        $settings = StaticContainer::get(SystemSettings::class);
+        $settings->slackOauthToken->setValue('test123');
+        Fixture::loadAllTranslations();
+
+        $contents = 'report contents';
+        $uploadUrl = 'https://files.slack.com/upload/v1/test';
+        $initialComment = null;
+        Piwik::addAction('Http.sendHttpRequest', function ($url, $params, &$response, &$status, &$headers) use ($contents, $uploadUrl, &$initialComment) {
+            if (strpos($url, 'files.getUploadURLExternal') !== false) {
+                $response = json_encode(['ok' => true, 'upload_url' => $uploadUrl, 'file_id' => 'F123']);
+            } elseif ($url === $uploadUrl) {
+                $response = 'OK - ' . strlen($contents);
+            } elseif (strpos($url, 'files.completeUploadExternal') !== false) {
+                $initialComment = $params['body']['initial_comment'];
+                $response = json_encode(['ok' => true]);
+            }
+        });
+
+        $report = [
+            'idreport' => 1,
+            'period' => 'day',
+            'parameters' => [Slack::SLACK_CHANNEL_ID_PARAMETER => 'test123'],
+        ];
+        StaticContainer::get(Slack::class)->sendReport('slack', $report, $contents, 'report.pdf', '2024-01-01', 'x <!channel> & <https://evil.example|y>', 'title', [], null, true);
+
+        $this->assertNotNull($initialComment);
+        $this->assertStringContainsString('&lt;!channel&gt;', $initialComment);
+        $this->assertStringContainsString('&amp;', $initialComment);
+        $this->assertStringNotContainsString('<!channel>', $initialComment);
+        $this->assertStringNotContainsString('<https://evil.example', $initialComment);
+    }
+
     /**
      * @dataProvider getAlertData
      */
