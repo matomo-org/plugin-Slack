@@ -1,1 +1,17 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID del canal de Slack",
+        "EncryptionFailed": "No se ha podido cifrar la credencial de Slack.",
+        "EncryptionKeyInvalid": "Falta la clave de cifrado de Slack o no es válida.",
+        "EncryptionOpenSslRequired": "Se requiere OpenSSL para cifrar o descifrar las credenciales de Slack.",
+        "NoOauthTokenAdded": "Añada su token OAuth de Slack %1$saquí%2$s.",
+        "OauthTokenRequiredErrorMessage": "Para activar Slack, indique su token OAuth de Slack en Configuración general &gt; Slack.",
+        "OauthTokenSettingDescription": "Introduzca el token OAuth de Slack generado desde su Slack. %1$sObtenga más información%2$s.",
+        "OauthTokenSettingTitle": "Token OAuth de Slack",
+        "PleaseFindYourReport": "Aquí tiene su informe %1$s de %2$s",
+        "SlackAlertContent": "%1$s se ha activado para el sitio web %2$s porque la métrica %3$s del informe %4$s %5$s.",
+        "SlackChannel": "Canal de Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID del canal de Slack no válido: solo se admiten valores alfanuméricos.",
+        "SlackChannelIdRequiredErrorMessage": "El ID del canal de Slack no puede estar vacío."
+    }
+}
