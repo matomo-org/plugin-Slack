@@ -9,6 +9,7 @@
 
 namespace Piwik\Plugins\Slack;
 
+use Piwik\Common;
 use Piwik\Http\BadRequestException;
 use Piwik\Log\LoggerInterface;
 use Piwik\Option;
@@ -341,7 +342,7 @@ class Slack extends Plugin
         }
 
         $periods = ScheduledReports::getPeriodToFrequency();
-        $subject = Piwik::translate('Slack_PleaseFindYourReport', [$periods[$report['period']], $reportSubject]);
+        $subject = Piwik::translate('Slack_PleaseFindYourReport', [$periods[$report['period']], $this->escapeSlackText($reportSubject)]);
         $channelId = $report['parameters'][self::SLACK_CHANNEL_ID_PARAMETER];
         $scheduleReportSlack = new ScheduleReportSlack($subject, $filename, $contents, $channelId, $token);
         if ($scheduleReportSlack->send() && !$force) {
@@ -496,9 +497,20 @@ class Slack extends Plugin
             $settingURL .= 'index.php';
         }
         $settingURL .= '?idSite=' . $alert['idsite'];
-        $siteName = $alert['siteName'];
+        $siteName = $this->escapeSlackText(Common::unsanitizeInputValue($alert['siteName']));
         $siteWithLink = "<$settingURL|$siteName>";
-        return Piwik::translate('Slack_SlackAlertContent', [$alert['name'], $siteWithLink, $metric, $reportName, $this->transformAlertCondition($alert)]);
+        return Piwik::translate('Slack_SlackAlertContent', [
+            $this->escapeSlackText($alert['name']),
+            $siteWithLink,
+            $this->escapeSlackText($metric),
+            $this->escapeSlackText($reportName),
+            $this->escapeSlackText($this->transformAlertCondition($alert)),
+        ]);
+    }
+
+    private function escapeSlackText(string $text): string
+    {
+        return str_replace(['&', '<', '>'], ['&amp;', '&lt;', '&gt;'], $text);
     }
 
     /**
