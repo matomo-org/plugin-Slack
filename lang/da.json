@@ -1,1 +1,18 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Slack-kanal-id",
+        "EncryptionFailed": "Kryptering af legitimationsoplysningerne til Slack mislykkedes.",
+        "EncryptionKeyInvalid": "Krypteringsnøglen til Slack mangler eller er ugyldig.",
+        "EncryptionOpenSslRequired": "OpenSSL er påkrævet for at kryptere eller dekryptere legitimationsoplysninger til Slack.",
+        "NoOauthTokenAdded": "Tilføj dit Slack OAuth-token %1$sher%2$s.",
+        "OauthTokenRequiredErrorMessage": "For at aktivere Slack skal du angive dit Slack OAuth-token under Generelle indstillinger &gt; Slack.",
+        "OauthTokenSettingDescription": "Angiv det Slack OAuth-token, du har genereret i Slack. %1$sLæs mere%2$s.",
+        "OauthTokenSettingTitle": "Slack OAuth-token",
+        "PleaseFindYourReport": "Her er din rapport (%1$s) for %2$s",
+        "SlackAlertContent": "%1$s er blevet udløst for hjemmesiden %2$s, da målingen %3$s i rapporten %4$s %5$s.",
+        "SlackChannel": "Slack-kanal",
+        "SlackChannelIdInvalidErrorMessage": "Ugyldigt Slack-kanal-id. Kun alfanumeriske værdier er tilladt.",
+        "SlackChannelIdRequiredErrorMessage": "Slack-kanal-id må ikke være tomt.",
+        "SlackEnterYourSlackChannelIdHelpText": "Angiv Slack-kanal-id'et for den kanal, der skal modtage disse rapporter. Du finder id'et ved at gå til Slack og åbne kanaldetaljerne &gt; fanen About. %1$sLæs mere%2$s"
+    }
+}
