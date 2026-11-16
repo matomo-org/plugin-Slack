@@ -1,6 +1,6 @@
 ## Changelog
 
-6.0.2
+6.0.2 - 2026-11-16
 - Security improvements
 - Answered requests with a missing or invalid Slack channel or display format with HTTP 400 from Matomo 6.1.0, instead of HTTP 200 with an error message
 
