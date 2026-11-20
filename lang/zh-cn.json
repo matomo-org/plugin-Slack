@@ -1,1 +1,17 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "Slack 频道 ID",
+        "EncryptionFailed": "无法加密 Slack 凭据。",
+        "EncryptionKeyInvalid": "Slack 加密密钥缺失或无效。",
+        "EncryptionOpenSslRequired": "加密或解密 Slack 凭据需要 OpenSSL。",
+        "NoOauthTokenAdded": "请在%1$s此处%2$s添加您的 Slack OAuth 令牌。",
+        "OauthTokenRequiredErrorMessage": "要启用 Slack，请在“一般设置 &gt; Slack”中提供您的 Slack OAuth 令牌。",
+        "OauthTokenSettingDescription": "输入您在 Slack 中生成的 Slack OAuth 令牌。%1$s了解更多%2$s。",
+        "OauthTokenSettingTitle": "Slack OAuth 令牌",
+        "PleaseFindYourReport": "这是您 %2$s 的 %1$s 报告",
+        "SlackChannel": "Slack 频道",
+        "SlackChannelIdInvalidErrorMessage": "Slack 频道 ID 无效，只允许使用字母和数字。",
+        "SlackChannelIdRequiredErrorMessage": "Slack 频道 ID 不能为空。",
+        "SlackEnterYourSlackChannelIdHelpText": "输入将接收这些报告的频道的 Slack 频道 ID。要查找该 ID，请前往 Slack，打开频道详情 &gt; “关于”选项卡。%1$s了解更多%2$s"
+    }
+}
