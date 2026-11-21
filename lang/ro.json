@@ -1,1 +1,18 @@
-{}
+{
+    "Slack": {
+        "ChannelId": "ID canal Slack",
+        "EncryptionFailed": "Criptarea credențialei Slack a eșuat.",
+        "EncryptionKeyInvalid": "Cheia de criptare Slack lipsește sau este invalidă.",
+        "EncryptionOpenSslRequired": "OpenSSL este necesar pentru criptarea sau decriptarea credențialelor Slack.",
+        "NoOauthTokenAdded": "Vă rugăm să adăugați token-ul OAuth Slack %1$saici%2$s.",
+        "OauthTokenRequiredErrorMessage": "Pentru a activa Slack, furnizați token-ul OAuth Slack în Setări generale &gt; Slack.",
+        "OauthTokenSettingDescription": "Introduceți token-ul OAuth Slack generat din Slack. %1$sAflați mai multe%2$s.",
+        "OauthTokenSettingTitle": "Token OAuth Slack",
+        "PleaseFindYourReport": "Iată raportul %1$s pentru %2$s",
+        "SlackAlertContent": "%1$s a fost declanșată pentru site-ul %2$s, deoarece metrica %3$s din raportul %4$s %5$s.",
+        "SlackChannel": "Canal Slack",
+        "SlackChannelIdInvalidErrorMessage": "ID de canal Slack invalid, sunt permise doar valori alfanumerice.",
+        "SlackChannelIdRequiredErrorMessage": "ID-ul canalului Slack nu poate fi gol.",
+        "SlackEnterYourSlackChannelIdHelpText": "Introduceți ID-ul canalului Slack care va primi aceste rapoarte. Pentru a găsi ID-ul, accesați Slack și deschideți detaliile canalului &gt; fila About. %1$sAflați mai multe%2$s"
+    }
+}
