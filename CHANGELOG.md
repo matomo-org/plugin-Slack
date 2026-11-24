@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.2
+- Security improvements
+
 5.1.1 - 2026-11-23
 - Updated translations
 
